@@ -1,0 +1,951 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="ENGEwRfibcs7AAyY_jQo4iWP2sCsk_QIPtjT7PL6imU" />
+<meta name="baidu-site-verification" content="WzcXc12auM" />
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.css.network/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,访问 JavaScript 深层属性," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="访问 JavaScript 链式属性在开发的过程中，会经常访问深层 JavaScript 属性，这时如果其中一个属性会有断层， 控制台就会报错出现如下错误。如果一个程序没有兼容深层访问属性的错误，就会在后端一个未知错误的时候会报错，并且难已检测。">
+<meta name="keywords" content="JavaScript,访问 JavaScript 深层属性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 无报错误访问深层属性方法">
+<meta property="og:url" content="https://clarencec.github.io/2019/02/04/how-to-accessing-deeply-property-in-safe-JavaScript/index.html">
+<meta property="og:site_name" content="ClarenceC">
+<meta property="og:description" content="访问 JavaScript 链式属性在开发的过程中，会经常访问深层 JavaScript 属性，这时如果其中一个属性会有断层， 控制台就会报错出现如下错误。如果一个程序没有兼容深层访问属性的错误，就会在后端一个未知错误的时候会报错，并且难已检测。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-11T06:59:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 无报错误访问深层属性方法">
+<meta name="twitter:description" content="访问 JavaScript 链式属性在开发的过程中，会经常访问深层 JavaScript 属性，这时如果其中一个属性会有断层， 控制台就会报错出现如下错误。如果一个程序没有兼容深层访问属性的错误，就会在后端一个未知错误的时候会报错，并且难已检测。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://clarencec.github.io/2019/02/04/how-to-accessing-deeply-property-in-safe-JavaScript/"/>
+
+
+
+
+
+  <title>JavaScript 无报错误访问深层属性方法 | ClarenceC</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108076069-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f52aaaa378f60976a5872e1d6becf65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ClarenceC</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<!--gitalk function -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<!--baidu SEO autoGet-->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://clarencec.github.io/2019/02/04/how-to-accessing-deeply-property-in-safe-JavaScript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ClarenceChen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ClarenceC">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">JavaScript 无报错误访问深层属性方法</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-04T10:49:40+08:00">
+                2019-02-04
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-02-11T14:59:28+08:00">
+                2019-02-11
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="访问-JavaScript-链式属性"><a href="#访问-JavaScript-链式属性" class="headerlink" title="访问 JavaScript 链式属性"></a>访问 JavaScript 链式属性</h2><p>在开发的过程中，会经常访问深层 JavaScript 属性，这时如果其中一个属性会有断层， 控制台就会报错出现如下错误。如果一个程序没有兼容深层访问属性的错误，就会在后端一个未知错误的时候会报错，并且难已检测。</p>
+<a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// TypeError: Cannot read property 'someProp' of undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-自定义方法判断。"><a href="#1-自定义方法判断。" class="headerlink" title="1. 自定义方法判断。"></a>1. 自定义方法判断。</h3><ul>
+<li><p>reduce</p>
+<p>reduce 听得多了其实 <code>reduce</code> 有很多种使用的方法.我们先了解一下 <code>reduce</code> 的用法.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.reduce(callback(previousValue, currentValue, index, array), [initialValue])</span><br><span class="line">  - callback (执行数组中每个值的函数，包含四个参数)</span><br><span class="line">    <span class="number">1.</span> previousValue (上一次调用回调返回的值，或者是提供的初始值 (initialValue))</span><br><span class="line">    <span class="number">2.</span> currentValue (数组中当前被处理的元素)</span><br><span class="line">    <span class="number">3.</span> index (当前元素在数组中的索引)</span><br><span class="line">    <span class="number">4.</span> array (调用reduce的数组)</span><br><span class="line">  - initialValue (作为第一次调用 callback 的第一个参数)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>那我们现在使用 <code>reduce</code> 来遍历对像属性，原理是从初始属性，遍历每一层属性再返回上一层属性，如果属性不存在则返回 null。</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> props = &#123;</span><br><span class="line">    user: &#123;</span><br><span class="line">        posts: [</span><br><span class="line">            &#123; <span class="attr">title</span>: <span class="string">'Foo'</span>, <span class="attr">comments</span>: [ <span class="string">'Good one!'</span>, <span class="string">'Interesting...'</span> ] &#125;,</span><br><span class="line">            &#123; <span class="attr">title</span>: <span class="string">'Bar'</span>, <span class="attr">comments</span>: [ <span class="string">'Ok'</span> ] &#125;,</span><br><span class="line">            &#123; <span class="attr">title</span>: <span class="string">'Baz'</span>, <span class="attr">comments</span>: []&#125;</span><br><span class="line">        ],</span><br><span class="line">        comments: [<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'333'</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> get = <span class="function">(<span class="params">p, o</span>) =&gt;</span>  p.reduce(<span class="function">(<span class="params">xs, x</span>) =&gt;</span> (xs &amp;&amp; xs[x]) ? xs[x] : <span class="literal">null</span>,  o)</span><br><span class="line"><span class="built_in">console</span>.log(get([<span class="string">'user'</span>, <span class="string">'posts'</span>, <span class="number">0</span>, <span class="string">'comments'</span>], props))</span><br><span class="line"><span class="built_in">console</span>.log(get([<span class="string">'user'</span>, <span class="string">'post'</span>, <span class="number">0</span>, <span class="string">'comments'</span>], props))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>递归手动实现</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepGet</span> (<span class="params">obj, properties, defaultValue</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!obj) &#123; <span class="keyword">return</span> defaultValue &#125;</span><br><span class="line">    <span class="keyword">if</span> (properties.length === <span class="number">0</span>) &#123; <span class="keyword">return</span> obj &#125;</span><br><span class="line">    <span class="keyword">var</span> foundSoFar = obj[properties[<span class="number">0</span>]]</span><br><span class="line">    <span class="keyword">var</span> remainingProperties = properties.slice(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> deepGet(foundSoFar, remainingProperties) <span class="comment">// 递归</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(deepGet(props, [<span class="string">'user'</span>, <span class="string">'comments'</span>, <span class="number">2</span>], &#123;&#125;)) <span class="comment">// 333</span></span><br><span class="line"><span class="built_in">console</span>.log(deepGet(props, [<span class="string">'user'</span>, <span class="string">'posts'</span>, <span class="number">1</span>, <span class="string">'title'</span>], &#123;&#125;)) <span class="comment">// Bar</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-引入函数工具类"><a href="#2-引入函数工具类" class="headerlink" title="2. 引入函数工具类"></a>2. 引入函数工具类</h3><ul>
+<li><strong>lodash</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; get &#125; <span class="keyword">from</span> <span class="string">'lodash'</span></span><br><span class="line">get(props, [<span class="string">'user'</span>, <span class="string">'posts'</span>, <span class="number">1</span>, <span class="string">'title'</span>], &#123;&#125;)) <span class="comment">// Bar</span></span><br></pre></td></tr></table></figure>
+<p>看了一下 lodash 的 get 实现原理.和上面实现的方法很像</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// lodash Get 实现</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">object, path, defaultValue</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = object == <span class="literal">null</span> ? <span class="literal">undefined</span> : baseGet(object, path)</span><br><span class="line">    <span class="keyword">return</span> result === <span class="literal">undefined</span> ? defaultValue : result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// baseGet</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">baseGet</span>(<span class="params">object, path</span>) </span>&#123;</span><br><span class="line">    path = castPath(path, object) <span class="comment">// 投入的路径转为 path 数组</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">const</span> length = path.length</span><br><span class="line">    <span class="keyword">while</span>(object != <span class="literal">null</span> &amp;&amp; index &lt; length) &#123; <span class="comment">// 循环获取对象下一层属性</span></span><br><span class="line">        object = object[toKey(path[index++])] <span class="comment">// toKey函数转换为可读的属性值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (index &amp;&amp; index == length) ? object : <span class="literal">undefined</span> <span class="comment">// index 存在且遍历完全部的时候,返回 object 的值否则为 undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Ramda</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getUserComments = R.path([<span class="string">'user'</span>, <span class="string">'posts'</span>, <span class="number">0</span>, <span class="string">'comments'</span>])</span><br><span class="line"></span><br><span class="line">getUserComments(props) <span class="comment">// ['Good one!', 'Intersting...']</span></span><br><span class="line">getUserComments(&#123;&#125;) <span class="comment">// []</span></span><br></pre></td></tr></table></figure>
+<h2 id="文章延伸"><a href="#文章延伸" class="headerlink" title="文章延伸"></a>文章延伸</h2><ul>
+<li><p><a href="https://zhuanlan.zhihu.com/p/27748589" target="_blank" rel="noopener">如何优雅安全地在深层数据结构中取值</a></p>
+</li>
+<li><p><a href="http://adripofjavascript.com/blog/drips/making-deep-property-access-safe-in-javascript.html" target="_blank" rel="noopener">Making Deep Property Access Safe in JavaScript</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/29296692" target="_blank" rel="noopener">无报错链式取值的几种方法</a></p>
+</li>
+<li><p><a href="https://medium.com/javascript-inside/safely-accessing-deeply-nested-values-in-javascript-99bf72a0855a" target="_blank" rel="noopener">Safely Accessing Deeply Nested Values In JavaScript</a></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>感谢你对我的支持 让我继续努力分享有用的技术和知识点.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/wechat-reward-image.jpg" alt="ClarenceChen WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/alipay-reward-image.jpg" alt="ClarenceChen Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-link">
+      <strong>本文作者：</strong>
+        <a href="/" title="欢迎访问ClarenceChen的个人博客">ClarenceChen</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文标题：</strong>
+        <a href="https://clarencec.github.io/2019/02/04/how-to-accessing-deeply-property-in-safe-JavaScript/" title="JavaScript 无报错误访问深层属性方法">JavaScript 无报错误访问深层属性方法</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+        <a href="https://clarencec.github.io/2019/02/04/how-to-accessing-deeply-property-in-safe-JavaScript/" title="JavaScript 无报错误访问深层属性方法">https://clarencec.github.io/2019/02/04/how-to-accessing-deeply-property-in-safe-JavaScript/</a>
+    </li>
+    <li class="post-copyright-date">
+      <strong>发布时间：</strong>  2019年2月4日-10时02分
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明：</strong>
+        本文由 ClarenceChen 原创，本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！ 并保留以上声明信息！
+    </li>
+  </ul>
+  
+  <!--<ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ClarenceChen
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://clarencec.github.io/2019/02/04/how-to-accessing-deeply-property-in-safe-JavaScript/" title="JavaScript 无报错误访问深层属性方法">https://clarencec.github.io/2019/02/04/how-to-accessing-deeply-property-in-safe-JavaScript/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>-->
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><!-- <i class="fa fa-tag" ></i> --> JavaScript</a>
+          
+            <a href="/tags/访问-JavaScript-深层属性/" rel="tag"><!-- <i class="fa fa-tag" ></i> --> 访问 JavaScript 深层属性</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/27/2018Summary/" rel="next" title="2018总结 寒冬将至，快速前行">
+                <i class="fa fa-chevron-left"></i> 2018总结 寒冬将至，快速前行
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/06/VFM/" rel="prev" title="视觉格式化模型(VFM)">
+                视觉格式化模型(VFM) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container" class="not_borden_link"></div>
+      <script type='text/javascript'>
+          var gitalk = new Gitalk({
+            id: window.location.pathname,
+            clientID: 'abb004cd7f8a1605e527',
+            clientSecret: '5795184c99ea1897477f834da08a20b2a2dc8335',
+            repo: 'ClarenceC.github.io',
+            owner: 'ClarenceC',
+            admin: ['ClarenceC'],
+            enableHotKey: true,
+            perPage: 10
+          })
+          gitalk.render('gitalk-container')
+      </script>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460"
+               alt="ClarenceChen" />
+          <p class="site-author-name" itemprop="name">ClarenceChen</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://calpa.me" title="Calpa" target="_blank">Calpa</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leviding.com" title="LeviDing" target="_blank">LeviDing</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#访问-JavaScript-链式属性"><span class="nav-number">1.</span> <span class="nav-text">访问 JavaScript 链式属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-自定义方法判断。"><span class="nav-number">1.1.</span> <span class="nav-text">1. 自定义方法判断。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-引入函数工具类"><span class="nav-number">1.2.</span> <span class="nav-text">2. 引入函数工具类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章延伸"><span class="nav-number">2.</span> <span class="nav-text">文章延伸</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ClarenceChen</span>
+</div>
+
+
+<div class="powered-by">
+  Theme by <a class="theme-link" href="https://hexo.io">Hexo</a>  
+</div>
+
+<div class="theme-info">
+  <!-- 主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a> -->
+  <!-- Design by  -
+  ClarenceChen -->
+  <div>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

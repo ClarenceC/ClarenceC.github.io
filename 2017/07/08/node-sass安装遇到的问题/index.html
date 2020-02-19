@@ -1,0 +1,1013 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="ENGEwRfibcs7AAyY_jQo4iWP2sCsk_QIPtjT7PL6imU" />
+<meta name="baidu-site-verification" content="WzcXc12auM" />
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.css.network/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="node-Sass,node-gyp," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="项目需要使用node-Sass,一 npm install 就报错了, npm install node-sass --save-dev 这么简单都报错,于是细心看了一下,原来是跟node-gyp 有关,发现一层又一层的底层安装,我的是window 端,总结一下错误情况如下:">
+<meta name="keywords" content="node-Sass,node-gyp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node-sass安装遇到的问题">
+<meta property="og:url" content="https://clarencec.github.io/2017/07/08/node-sass安装遇到的问题/index.html">
+<meta property="og:site_name" content="ClarenceC">
+<meta property="og:description" content="项目需要使用node-Sass,一 npm install 就报错了, npm install node-sass --save-dev 这么简单都报错,于是细心看了一下,原来是跟node-gyp 有关,发现一层又一层的底层安装,我的是window 端,总结一下错误情况如下:">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-02T04:32:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node-sass安装遇到的问题">
+<meta name="twitter:description" content="项目需要使用node-Sass,一 npm install 就报错了, npm install node-sass --save-dev 这么简单都报错,于是细心看了一下,原来是跟node-gyp 有关,发现一层又一层的底层安装,我的是window 端,总结一下错误情况如下:">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://clarencec.github.io/2017/07/08/node-sass安装遇到的问题/"/>
+
+
+
+
+
+  <title>node-sass安装遇到的问题 | ClarenceC</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108076069-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f52aaaa378f60976a5872e1d6becf65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ClarenceC</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<!--gitalk function -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<!--baidu SEO autoGet-->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://clarencec.github.io/2017/07/08/node-sass安装遇到的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ClarenceChen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ClarenceC">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">node-sass安装遇到的问题</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-08T17:07:54+08:00">
+                2017-07-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-12-02T12:32:17+08:00">
+                2017-12-02
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ops/" itemprop="url" rel="index">
+                    <span itemprop="name">ops</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>项目需要使用node-Sass,一 npm install 就报错了, <code>npm install node-sass --save-dev</code> 这么简单都报错,于是细心看了一下,原来是跟node-gyp 有关,发现一层又一层的底层安装,我的是window 端,总结一下错误情况如下:</p>
+<a id="more"></a>
+<h2 id="node-gyp"><a href="#node-gyp" class="headerlink" title="node-gyp"></a>node-gyp</h2><blockquote>
+<p><code>$ npm install -g node-gyp</code></p>
+</blockquote>
+<p>安装 node-gyp ,需要安装不同的依赖如下</p>
+<h3 id="On-Unix"><a href="#On-Unix" class="headerlink" title="On Unix"></a><strong>On Unix</strong></h3><ul>
+<li>python (v2.7 recommended, v3.x.x is not supported)</li>
+<li>make</li>
+<li>A proper C/C++ compiler toolchain, like GCC</li>
+</ul>
+<h3 id="On-Mac-OS-X"><a href="#On-Mac-OS-X" class="headerlink" title="On Mac OS X"></a><strong>On Mac OS X</strong></h3><ul>
+<li>python (v2.7 recommended, v3.x.x is not supported) (already installed on Mac OS X)</li>
+<li>Xcode<ul>
+<li>You also need to install the Command Line Tools via Xcode. You can find this under the menu Xcode -&gt; Preferences -&gt; Downloads</li>
+<li>This step will install gcc and the related toolchain containing make</li>
+</ul>
+</li>
+</ul>
+<h3 id="On-Windows"><a href="#On-Windows" class="headerlink" title="On Windows"></a><strong>On Windows</strong></h3><p><strong>Option 1</strong></p>
+<p>Install all the required tools and configurations using Microsoft’s windows-build-tools using npm install –global –production windows-build-tools from an elevated PowerShell or CMD.exe (run as Administrator).</p>
+<p>Option 2</p>
+<p>Install tools and configuration manually:</p>
+<ul>
+<li><p>Visual C++ Build Environment:</p>
+<ul>
+<li><p>Option 1: Install <a href="http://landinghub.visualstudio.com/visual-cpp-build-tools" target="_blank" rel="noopener">Visual C++ Build Tools</a> using the Default Install option.</p>
+</li>
+<li><p>Option 2: Install <a href="https://www.visualstudio.com/products/visual-studio-community-vs" target="_blank" rel="noopener">Visual Studio 2015</a> (or modify an existing installation) and select Common Tools for Visual C++ during setup. This also works with the free Community and Express for Desktop editions.</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>💡 [Windows Vista / 7 only] requires .NET Framework 4.5.1</p>
+<ul>
+<li>Install Python 2.7 (v3.x.x is not supported), and run <code>npm config set python python2.7</code> (or see below for further instructions on specifying the proper Python version and path.)</li>
+</ul>
+</blockquote>
+<ul>
+<li>Launch cmd, <code>npm config set msvs_version 2015</code></li>
+</ul>
+<p>If the above steps didn’t work for you, please visit Microsoft’s Node.js Guidelines for Windows for additional tips.</p>
+<p>If you have multiple Python versions installed, you can identify which Python version node-gyp uses by setting the ‘–python’ variable:</p>
+<p><code>$ node-gyp --python /path/to/python2.7</code><br>If node-gyp is called by way of npm and you have multiple versions of Python installed, then you can set npm’s ‘python’ config key to the appropriate value:</p>
+<p><code>$ npm config set python /path/to/executable/python2.7</code><br>Note that OS X is just a flavour of Unix and so needs python, make, and C/C++. An easy way to obtain these is to install XCode from Apple, and then use it to install the command line tools (under Preferences -&gt; Downloads).</p>
+<h3 id="总结来说"><a href="#总结来说" class="headerlink" title="总结来说:"></a>总结来说:</h3><p><strong>Windows</strong> 安装 <strong>node-gyp</strong> 需要安装依赖</p>
+<ul>
+<li>python2.7 并安装前设置 <code>npm config set python python2.7</code></li>
+<li>2005Visual C++ Build Tools  并安装前设置 <code>npm config set msvs_version 2015</code></li>
+</ul>
+<h2 id="node-sass"><a href="#node-sass" class="headerlink" title="node-sass"></a>node-sass</h2><p>在安装<strong>node-sass</strong>通常情常下都会卡着，因为安装的过程需要到墙外下载二进制包。可以有三种方法安装</p>
+<p>一，使用梯子安装</p>
+<p> 这不详细解释了。</p>
+<p>二，使用淘宝镜像或者cnpm</p>
+<p><a href="https://npm.taobao.org/" target="_blank" rel="noopener">淘宝镜像网址</a></p>
+<p>三，因为是二进制包卡，所以可以去官网根据版本号、系统环境，选择下载 <strong>.node</strong> 单独下载：</p>
+<p><a href="https://github.com/sass/node-sass/releases" target="_blank" rel="noopener">https://github.com/sass/node-sass/releases</a></p>
+<p>安装时，添加上你的本地安装地址.</p>
+<p><code>npm install node-sass sass_binary_path=C:/node-sass/darwin-x64-48_binding.node</code></p>
+<p>or </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set SASS_BINARY_SITE=https://npm.taobao.org/mirrors/node-sass/</span><br><span class="line">npm install node-sass</span><br></pre></td></tr></table></figure>
+<p>or</p>
+<p><code>npm uninstall node-sass &amp;&amp; npm i node-sass --sass_binary_site=https://npm.taobao.org/mirrors/node-sass/</code></p>
+<p>那就可以了。</p>
+<p>错误情况一:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Error: Can&apos;t find Python executable &quot;python&quot;, you can set the PYT</span><br><span class="line">HON env variable.</span><br></pre></td></tr></table></figure></p>
+<p>缺少安装 python 看上面依赖安装</p>
+<p>错误情况二:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSBUILD : error MSB3428: 未能加载 Visual C++ 组件“VCBuild.exe”</span><br></pre></td></tr></table></figure></p>
+<p>缺少安装 Visual C++ 组件 上面安装连接</p>
+<p>错误情况三:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error LNK1107: invalid or corrupt file: cannot read at 0xB8790</span><br></pre></td></tr></table></figure></p>
+<p>The error message suggests, that you have linked against <strong>.dll instead of </strong>.lib. One always has to link against the lib file and copy the dll to a place where it can be found at runtime</p>
+<p><a href="https://stackoverflow.com/questions/35916703/error1-error-lnk1107-invalid-or-corrupt-file-cannot-read-at-0x2b0" target="_blank" rel="noopener">cannot read at 0x2B0</a></p>
+<p>错误情况四:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: ENOENT: no such file or directory, scandir &apos;**/node_modules/node-sass/vendor&apos;</span><br></pre></td></tr></table></figure></p>
+<p>得重新 rebuild <code>npm rebuild node-sass</code></p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章 :"></a>参考文章 :</h2><p><a href="https://github.com/nodejs/node-gyp/issues/307#issuecomment-240556824" target="_blank" rel="noopener">MSBUILD : error MSB3428: Could not load the Visual C++ component “VCBuild.exe”.</a><br><a href="https://github.com/nodejs/node-gyp" target="_blank" rel="noopener">node-gyp github</a><br><a href="https://segmentfault.com/q/1010000004137785/a-1020000004139336" target="_blank" rel="noopener">npm install sass-loader –save-dev 总是失败</a><br><a href="https://stackoverflow.com/questions/29368205/cant-find-python-executable-npm-install-hangs" target="_blank" rel="noopener">“Can’t find Python executable…” - npm install hangs</a><br><a href="https://stackoverflow.com/questions/15126050/running-python-on-windows-for-node-js-dependencies" target="_blank" rel="noopener">Running Python on Windows for Node.js dependencies</a><br><a href="https://cnodejs.org/topic/510a98acdf9e9fcc58ee157b" target="_blank" rel="noopener">npm install socket.io 提示缺少“VCBuild.exe”，一定要装VS C++吗？</a><br><a href="https://github.com/lmk123/blog/issues/28" target="_blank" rel="noopener">安装 node-sass 的正确姿势</a><br><a href="https://segmentfault.com/a/1190000005921721" target="_blank" rel="noopener">node-sass 安装卡在 node scripts/install.js 解决办法</a><br><a href="https://github.com/davezuko/react-redux-starter-kit/issues/791" target="_blank" rel="noopener">node-sass compile time missing folder</a><br><a href="https://lzw.me/a/node-sass-install-helper.html" target="_blank" rel="noopener">node-sass 安装失败的解决办法</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>感谢你对我的支持 让我继续努力分享有用的技术和知识点.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/wechat-reward-image.jpg" alt="ClarenceChen WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/alipay-reward-image.jpg" alt="ClarenceChen Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-link">
+      <strong>本文作者：</strong>
+        <a href="/" title="欢迎访问ClarenceChen的个人博客">ClarenceChen</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文标题：</strong>
+        <a href="https://clarencec.github.io/2017/07/08/node-sass安装遇到的问题/" title="node-sass安装遇到的问题">node-sass安装遇到的问题</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+        <a href="https://clarencec.github.io/2017/07/08/node-sass安装遇到的问题/" title="node-sass安装遇到的问题">https://clarencec.github.io/2017/07/08/node-sass安装遇到的问题/</a>
+    </li>
+    <li class="post-copyright-date">
+      <strong>发布时间：</strong>  2017年7月8日-17时07分
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明：</strong>
+        本文由 ClarenceChen 原创，本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！ 并保留以上声明信息！
+    </li>
+  </ul>
+  
+  <!--<ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ClarenceChen
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://clarencec.github.io/2017/07/08/node-sass安装遇到的问题/" title="node-sass安装遇到的问题">https://clarencec.github.io/2017/07/08/node-sass安装遇到的问题/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>-->
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-Sass/" rel="tag"><!-- <i class="fa fa-tag" ></i> --> node-Sass</a>
+          
+            <a href="/tags/node-gyp/" rel="tag"><!-- <i class="fa fa-tag" ></i> --> node-gyp</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/05/Sass学习与理解/" rel="next" title="Sass学习与理解">
+                <i class="fa fa-chevron-left"></i> Sass学习与理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/17/添加Prettier-JavaScript-formatter-插件管理vscode-airbnb代码的格式化/" rel="prev" title="添加Prettier-JavaScript formatter 插件管理vscode airbnb代码的格式化">
+                添加Prettier-JavaScript formatter 插件管理vscode airbnb代码的格式化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container" class="not_borden_link"></div>
+      <script type='text/javascript'>
+          var gitalk = new Gitalk({
+            id: window.location.pathname,
+            clientID: 'abb004cd7f8a1605e527',
+            clientSecret: '5795184c99ea1897477f834da08a20b2a2dc8335',
+            repo: 'ClarenceC.github.io',
+            owner: 'ClarenceC',
+            admin: ['ClarenceC'],
+            enableHotKey: true,
+            perPage: 10
+          })
+          gitalk.render('gitalk-container')
+      </script>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460"
+               alt="ClarenceChen" />
+          <p class="site-author-name" itemprop="name">ClarenceChen</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://calpa.me" title="Calpa" target="_blank">Calpa</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leviding.com" title="LeviDing" target="_blank">LeviDing</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#node-gyp"><span class="nav-number">1.</span> <span class="nav-text">node-gyp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#On-Unix"><span class="nav-number">1.1.</span> <span class="nav-text">On Unix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#On-Mac-OS-X"><span class="nav-number">1.2.</span> <span class="nav-text">On Mac OS X</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#On-Windows"><span class="nav-number">1.3.</span> <span class="nav-text">On Windows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结来说"><span class="nav-number">1.4.</span> <span class="nav-text">总结来说:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node-sass"><span class="nav-number">2.</span> <span class="nav-text">node-sass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">3.</span> <span class="nav-text">参考文章 :</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ClarenceChen</span>
+</div>
+
+
+<div class="powered-by">
+  Theme by <a class="theme-link" href="https://hexo.io">Hexo</a>  
+</div>
+
+<div class="theme-info">
+  <!-- 主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a> -->
+  <!-- Design by  -
+  ClarenceChen -->
+  <div>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

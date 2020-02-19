@@ -1,0 +1,995 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="ENGEwRfibcs7AAyY_jQo4iWP2sCsk_QIPtjT7PL6imU" />
+<meta name="baidu-site-verification" content="WzcXc12auM" />
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.css.network/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="视觉格式化模型CSS 视觉格式化模型(visual formatting model) 是用来处理和在视觉媒体上显示文档时使用的计算规则。该模型是 CSS 的基础概念之一。 什么是视觉格式化模型 视觉格式化模型会根据CSS盒子模型将文档中的元素转换为一个个盒子。——MDN  可以理解为，Web页面都是由一个个盒子组成的">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视觉格式化模型(VFM)">
+<meta property="og:url" content="https://clarencec.github.io/2020/02/06/VFM/index.html">
+<meta property="og:site_name" content="ClarenceC">
+<meta property="og:description" content="视觉格式化模型CSS 视觉格式化模型(visual formatting model) 是用来处理和在视觉媒体上显示文档时使用的计算规则。该模型是 CSS 的基础概念之一。 什么是视觉格式化模型 视觉格式化模型会根据CSS盒子模型将文档中的元素转换为一个个盒子。——MDN  可以理解为，Web页面都是由一个个盒子组成的，(因为任何元素都可以被视为一个盒子)，而视觉格式化模型是一套规则，用来计算元素">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-02-06T13:09:31.695Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="视觉格式化模型(VFM)">
+<meta name="twitter:description" content="视觉格式化模型CSS 视觉格式化模型(visual formatting model) 是用来处理和在视觉媒体上显示文档时使用的计算规则。该模型是 CSS 的基础概念之一。 什么是视觉格式化模型 视觉格式化模型会根据CSS盒子模型将文档中的元素转换为一个个盒子。——MDN  可以理解为，Web页面都是由一个个盒子组成的，(因为任何元素都可以被视为一个盒子)，而视觉格式化模型是一套规则，用来计算元素">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://clarencec.github.io/2020/02/06/VFM/"/>
+
+
+
+
+
+  <title>视觉格式化模型(VFM) | ClarenceC</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108076069-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f52aaaa378f60976a5872e1d6becf65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ClarenceC</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<!--gitalk function -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<!--baidu SEO autoGet-->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://clarencec.github.io/2020/02/06/VFM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ClarenceChen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ClarenceC">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">视觉格式化模型(VFM)</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-06T18:04:53+08:00">
+                2020-02-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-02-06T21:09:31+08:00">
+                2020-02-06
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="视觉格式化模型"><a href="#视觉格式化模型" class="headerlink" title="视觉格式化模型"></a>视觉格式化模型</h2><p>CSS 视觉格式化模型(visual formatting model) 是用来处理和在视觉媒体上显示文档时使用的计算规则。该模型是 CSS 的基础概念之一。</p>
+<h3 id="什么是视觉格式化模型"><a href="#什么是视觉格式化模型" class="headerlink" title="什么是视觉格式化模型"></a>什么是视觉格式化模型</h3><blockquote>
+<p>视觉格式化模型会根据<strong>CSS盒子模型</strong>将文档中的元素转换为一个个盒子。——MDN</p>
+</blockquote>
+<p>可以理解为，Web页面都是由一个个盒子组成的，(因为任何元素都可以被视为一个盒子)，而视觉格式化模型是一套规则，用来计算<strong>元素转换为盒子的规则</strong>。而页面的布局都是由这些盒子的所处的各处位置组合而成。那么理解元素怎样转成盒子的规则，就能理解Web页面是怎样布局的。每个盒子的布局由以下因素决定的：</p>
+<ul>
+<li>盒子的尺寸: 精确指定、由约束条件指定或没有指定</li>
+<li>盒子的类型: 行内盒子(inline)、行内级盒子(inline-level)、原子行内级盒子(atomic inline-level)、块盒子(block)</li>
+<li>定位方案(positioning scheme): 普通流定位、浮动定位或绝对定位</li>
+<li>文档树中的其它元素: 即当前盒子的子元素或兄弟元素</li>
+<li>视口尺寸与位置</li>
+<li>所包含的图片的尺寸</li>
+<li>其他的某些外部因素</li>
+</ul>
+<a id="more"></a>
+<h3 id="那么视觉格式化模型和CSS盒子模型是一样的东西么？"><a href="#那么视觉格式化模型和CSS盒子模型是一样的东西么？" class="headerlink" title="那么视觉格式化模型和CSS盒子模型是一样的东西么？"></a>那么视觉格式化模型和CSS盒子模型是一样的东西么？</h3><p>并不是一样的模型，视觉格式化模型是元素转换为盒子的规则计算盒子位置的模型，换转为盒子后再有相应的<strong>CSS盒子模型</strong>，CSS盒子模型是由四个部分组成由内容边界(Content edge)、内边跟边界(Padding Edge)、边框边界(BorderEdge)、外边边框边界(Margin Edge)，由这四部分来计算盒子尺寸(<code>width</code>、<code>height</code>、<code>padding</code>、<code>border</code>和<code>margin</code>)该文章里不详述。</p>
+<h3 id="盒子的生成"><a href="#盒子的生成" class="headerlink" title="盒子的生成"></a>盒子的生成</h3><p>盒子的生成是 CSS 视觉格式化模型的一部分，用于从文档元素生成盒子。不同的元素会生成不同类型的盒子，不同的盒子类型格式化方法也是不一样的。盒子中可以包含一个或多个盒子，CSS的视觉格式化模型会根据盒子的包含块(Containing Block,即包含其它盒子的块)的边界来渲染盒子。通常，盒子会创建一个包含其后代元素的<strong>包含块</strong>，但是盒子并不会被包含块限制住，盒子里面的布局会撑破<strong>包含块</strong>,使超出边界，这在CSS中通常被叫<strong>溢出</strong>。</p>
+<p>盒子生成的类型取决于CSS <code>display</code> 属性，主要分下面几类:</p>
+<h4 id="块级元素与块盒子"><a href="#块级元素与块盒子" class="headerlink" title="块级元素与块盒子"></a>块级元素与块盒子</h4><p>当元素的 <code>display</code> 设为 <code>block</code>、<code>list-item</code> 或 <code>table</code> 时，该元素将成为<strong>块级元素</strong>。一个块级元素会被格式化成一个块，默认按照垂直方向依次排列。</p>
+<p>每个块级盒子都会参与<a href="./BFC.md"><strong>块格式化上下文BFC</strong>(block formatting context)</a>的创建，每个块级元素都至少生成一个<strong>块级盒子</strong>，有时甚至会生成多个块级盒子。</p>
+<p>一个块级盒子包含子块级盒子的时候就会成为容器，称为块容器盒子(block container box)。块容器盒子要么只包含其它块级盒子，要么只包含行内盒子并同时创建一个<strong>行内格式化上下文</strong>(inline formatting context)。如果同时包含两者的情况，就会在相邻的行内级盒子外创建<strong>匿名块盒子</strong>包裹行内级盒子。</p>
+<p><dfn>匿名块盒子</dfn></p>
+<p><strong>匿名块盒子</strong>(anonymous box)是指CSS选择器不能作用于该类盒子，所以它不能被赋予样式。它的CSS样式都是继承过来的， CSS属性值都为 <code>inherit</code>, 而所有不可继承的 CSS 属性值都为 <code>initial</code>。</p>
+<h4 id="行内级元素和行内盒子"><a href="#行内级元素和行内盒子" class="headerlink" title="行内级元素和行内盒子"></a>行内级元素和行内盒子</h4><p>如果一个元素的 <code>display</code> 属性为 <code>inline</code>、<code>inline-block</code> 或 <code>inline-table</code>，则称该元素为行内级元素。它不会生成内容块，视角上他会与其它行内级内容一起显示为多行。典型的例子是包含多种格式内容(如强调文本、图片等)的段落，就是由行内级元素组成的。</p>
+<p>行内级元素会生成行内级盒子，该盒子同时会参与<strong>行内格式化上下文</strong>(inline formatting context)的创建。行内盒子既是行内级盒子，也是一个其内容会参与创建其容器的行内格式化上下文的盒子，比如所有具有 <code>display:inline</code> 样式的非替换盒子。如果一个行内级盒子的内容不参与行内格式化上下文的创建，则称其为<strong>原子行内级盒子</strong>。而通过替换行内级元素或 display 值为 <code>inline-block</code> 或 <code>inline-table</code> 的元素创建的盒子不会像行内盒子一样可以被拆分为多个盒子,<strong>原子行内级盒子</strong>，永远都不会换行，会被视为一整个原子一样。<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Visual_formatting_model" target="_blank" rel="noopener">例子</a></p>
+<p><dfn>匿名行内盒子</dfn></p>
+<p>类似于块盒子，CSS引擎有时候也会自动创建一些行内盒子。这些行内盒子无法被选择符选中，因此是匿名的，它们从父元素那里继承那些可继承的属性，其他属性保持默认值 <code>initial</code>。</p>
+<p>一种常见的情况是CSS引擎会自动为直接包含在块盒子中的文本创建一个行内格式化上下文，在这种情况下，这些文本会被一个足够大的匿名行内盒子所包含。但是如果仅包含空格则有可能不会生成匿名行内盒子，因为空格有可能会由于 <code>white-space</code> 的设置而被移除，从而导致最终的实际内容为空。</p>
+<h4 id="其它类型的盒子"><a href="#其它类型的盒子" class="headerlink" title="其它类型的盒子"></a>其它类型的盒子</h4><p>其它类型盒子有:</p>
+<ul>
+<li><strong>行盒子</strong>，行盒子由行内格式化上下文创建，用来显示一行文本。浮动定位时，行盒子会自动包围浮动元素。</li>
+<li><strong>Run-in 盒子</strong>，通过 <code>display:run-in</code> 来定义，它可以是块盒子，也可以是行内盒子，取决于紧随其后的盒子类型。</li>
+<li><strong>其它模型引入的盒子</strong>, 除了<strong>IFC 行内格式化上下文</strong>和<strong>BFC 块格式化上下文</strong>，还有其它的模型会生成盒子，比如：<br>1）<strong>表格内容模型</strong>， 可能会创建一个表格包装器盒子和一个表格盒子，以及多个其他盒子如表格标题盒子等。<br>2）<strong>多列内容模型</strong>可能会在容器盒子和内容之间创建多个列盒子<br>3）实验性的网格内容模型或flex-box内容模型同样会创建一些其他种类的盒子</li>
+</ul>
+<h3 id="定位规则"><a href="#定位规则" class="headerlink" title="定位规则"></a>定位规则</h3><p>生成盒子之后，CSS引擎就需要定位它们以完成布局定位，可以说盒子就是定位的基本单位。定位时，有三种定位方案:</p>
+<h4 id="常规流-Normal-flow"><a href="#常规流-Normal-flow" class="headerlink" title="常规流(Normal flow)"></a>常规流(Normal flow)</h4><ul>
+<li>在常规流中，依次按照盒子一个接着一个水平左右排列，没位置换行。</li>
+<li>在<strong>块级格式上下文(BFC)</strong>中，盒子依次<strong>垂直方向</strong>排列。</li>
+<li>在<strong>行内格式上下文(IFC)</strong>中，盒子则<strong>水平方向</strong>排列。</li>
+<li>当 <code>position</code> 为 <code>static</code> 或 <code>relative</code>，并且 <code>float</code> 为 <code>none</code> 时会触发常规流。</li>
+<li>对于<strong>静态定位(static positioning)</strong>, <code>position: static</code>, 此时盒子的位置会根据普通流所计算出来的确切位置来定位。</li>
+<li>对于<strong>相对定位(relative positioning)</strong>, <code>position: relative</code>, 此时盒子会根据偏移属性<code>top</code>,<code>bottom</code>,<code>left</code>和<code>right</code>，进行偏移。即使有偏移，仍然保留原有的位置，其它常规流不能占用这个位置。</li>
+</ul>
+<h4 id="浮动-Floats"><a href="#浮动-Floats" class="headerlink" title="浮动(Floats)"></a>浮动(Floats)</h4><ul>
+<li>一个盒子的 <code>float</code> 值不会为 <code>none</code>，并且 <code>position</code> 为 <code>static</code> 或 <code>relative</code> 时，该盒子为浮动定位，称为浮动盒子(floating boxes)。</li>
+<li>浮动盒子会浮动到当前行的开始或尾部位置。</li>
+<li>浮动盒子浮动后，其它普通流盒子会环绕它的周边，除非设置 <code>clear</code> 属性。</li>
+<li>不管左浮动或右浮动，行盒子都会伸缩以适应浮动盒子的大小。</li>
+</ul>
+<h4 id="绝对定位-Absolute-positioning"><a href="#绝对定位-Absolute-positioning" class="headerlink" title="绝对定位(Absolute positioning)"></a>绝对定位(Absolute positioning)</h4><ul>
+<li>元素的 <code>position</code> 为 <code>absolute</code> 或者 <code>fixed</code>,则为绝对定位。</li>
+<li>绝对定位盒子，<strong>会从常规流中移除不再保留原位置</strong>，不再影响其它常规流的正常排序布局。</li>
+<li>它的定位相对于它的包含块计算，根据CSS属性<code>top</code>, <code>bottom</code>, <code>left</code>和 <code>right</code>来判断。</li>
+<li>对于 <code>position: absolute</code>, 元素定位将相对于最近的一个 <code>relative</code>、 <code>fixed</code> 或 <code>absolute</code> 的父元素决定，如果没有则相对于 <code>body</code>。</li>
+<li>如果固定位置的元素<code>fixed</code>的来说, 会视包含块为整个视口，会相对于视口进行绝对定位。因此滚动时元素位置并不会改变。</li>
+</ul>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Visual_formatting_model" target="_blank" rel="noopener">视觉格式化模型</a></li>
+<li><a href="https://www.w3cplus.com/css/web-layout-visual-formatting-model.html" target="_blank" rel="noopener">Web布局：视觉格式化模型</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Block-level_elements" target="_blank" rel="noopener">块级元素</a></li>
+<li><a href="http://www.ayqy.net/doc/css2-1/visuren.html" target="_blank" rel="noopener">视觉格式化模型</a></li>
+<li><a href="https://www.w3.org/TR/CSS22/visuren.html" target="_blank" rel="noopener">Visual formatting model</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>感谢你对我的支持 让我继续努力分享有用的技术和知识点.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/wechat-reward-image.jpg" alt="ClarenceChen WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/alipay-reward-image.jpg" alt="ClarenceChen Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-link">
+      <strong>本文作者：</strong>
+        <a href="/" title="欢迎访问ClarenceChen的个人博客">ClarenceChen</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文标题：</strong>
+        <a href="https://clarencec.github.io/2020/02/06/VFM/" title="视觉格式化模型(VFM)">视觉格式化模型(VFM)</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+        <a href="https://clarencec.github.io/2020/02/06/VFM/" title="视觉格式化模型(VFM)">https://clarencec.github.io/2020/02/06/VFM/</a>
+    </li>
+    <li class="post-copyright-date">
+      <strong>发布时间：</strong>  2020年2月6日-18时02分
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明：</strong>
+        本文由 ClarenceChen 原创，本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！ 并保留以上声明信息！
+    </li>
+  </ul>
+  
+  <!--<ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ClarenceChen
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://clarencec.github.io/2020/02/06/VFM/" title="视觉格式化模型(VFM)">https://clarencec.github.io/2020/02/06/VFM/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>-->
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"><!-- <i class="fa fa-tag" ></i> --> CSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/04/how-to-accessing-deeply-property-in-safe-JavaScript/" rel="next" title="JavaScript 无报错误访问深层属性方法">
+                <i class="fa fa-chevron-left"></i> JavaScript 无报错误访问深层属性方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container" class="not_borden_link"></div>
+      <script type='text/javascript'>
+          var gitalk = new Gitalk({
+            id: window.location.pathname,
+            clientID: 'abb004cd7f8a1605e527',
+            clientSecret: '5795184c99ea1897477f834da08a20b2a2dc8335',
+            repo: 'ClarenceC.github.io',
+            owner: 'ClarenceC',
+            admin: ['ClarenceC'],
+            enableHotKey: true,
+            perPage: 10
+          })
+          gitalk.render('gitalk-container')
+      </script>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460"
+               alt="ClarenceChen" />
+          <p class="site-author-name" itemprop="name">ClarenceChen</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://calpa.me" title="Calpa" target="_blank">Calpa</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leviding.com" title="LeviDing" target="_blank">LeviDing</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#视觉格式化模型"><span class="nav-number">1.</span> <span class="nav-text">视觉格式化模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是视觉格式化模型"><span class="nav-number">1.1.</span> <span class="nav-text">什么是视觉格式化模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那么视觉格式化模型和CSS盒子模型是一样的东西么？"><span class="nav-number">1.2.</span> <span class="nav-text">那么视觉格式化模型和CSS盒子模型是一样的东西么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#盒子的生成"><span class="nav-number">1.3.</span> <span class="nav-text">盒子的生成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#块级元素与块盒子"><span class="nav-number">1.3.1.</span> <span class="nav-text">块级元素与块盒子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行内级元素和行内盒子"><span class="nav-number">1.3.2.</span> <span class="nav-text">行内级元素和行内盒子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其它类型的盒子"><span class="nav-number">1.3.3.</span> <span class="nav-text">其它类型的盒子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定位规则"><span class="nav-number">1.4.</span> <span class="nav-text">定位规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常规流-Normal-flow"><span class="nav-number">1.4.1.</span> <span class="nav-text">常规流(Normal flow)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮动-Floats"><span class="nav-number">1.4.2.</span> <span class="nav-text">浮动(Floats)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对定位-Absolute-positioning"><span class="nav-number">1.4.3.</span> <span class="nav-text">绝对定位(Absolute positioning)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">1.5.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ClarenceChen</span>
+</div>
+
+
+<div class="powered-by">
+  Theme by <a class="theme-link" href="https://hexo.io">Hexo</a>  
+</div>
+
+<div class="theme-info">
+  <!-- 主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a> -->
+  <!-- Design by  -
+  ClarenceChen -->
+  <div>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1029 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="ENGEwRfibcs7AAyY_jQo4iWP2sCsk_QIPtjT7PL6imU" />
+<meta name="baidu-site-verification" content="WzcXc12auM" />
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.css.network/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="tool," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="现在做显示设备适配越来越复杂了,不单只要调试Web端设置还得要兼容手持端各尺寸的手持端设备,当然还有越来越广泛的生态应用 PWA SPA 等,都是在展示的网页都成App形式存在了,不在像以前的网页简单的页面与后台反馈.所以前端也需要一个优秀的工具来测量调试. Chrome Devtools 应运而生, Chrome D">
+<meta name="keywords" content="tool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chrome Devtools 开发者工具简述">
+<meta property="og:url" content="https://clarencec.github.io/2018/02/13/chrome-devtools/index.html">
+<meta property="og:site_name" content="ClarenceC">
+<meta property="og:description" content="现在做显示设备适配越来越复杂了,不单只要调试Web端设置还得要兼容手持端各尺寸的手持端设备,当然还有越来越广泛的生态应用 PWA SPA 等,都是在展示的网页都成App形式存在了,不在像以前的网页简单的页面与后台反馈.所以前端也需要一个优秀的工具来测量调试. Chrome Devtools 应运而生, Chrome Devtools 提供了强大的调试测量功能,下面我们简称 Chrome 开发者工具">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://clarencec.github.io/2018/02/13/chrome-devtools/2018/02/13/chrome-devtools/chrome-devtools-1024x512.png">
+<meta property="og:updated_time" content="2018-03-05T09:05:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chrome Devtools 开发者工具简述">
+<meta name="twitter:description" content="现在做显示设备适配越来越复杂了,不单只要调试Web端设置还得要兼容手持端各尺寸的手持端设备,当然还有越来越广泛的生态应用 PWA SPA 等,都是在展示的网页都成App形式存在了,不在像以前的网页简单的页面与后台反馈.所以前端也需要一个优秀的工具来测量调试. Chrome Devtools 应运而生, Chrome Devtools 提供了强大的调试测量功能,下面我们简称 Chrome 开发者工具">
+<meta name="twitter:image" content="https://clarencec.github.io/2018/02/13/chrome-devtools/2018/02/13/chrome-devtools/chrome-devtools-1024x512.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://clarencec.github.io/2018/02/13/chrome-devtools/"/>
+
+
+
+
+
+  <title>Chrome Devtools 开发者工具简述 | ClarenceC</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108076069-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f52aaaa378f60976a5872e1d6becf65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ClarenceC</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<!--gitalk function -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<!--baidu SEO autoGet-->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://clarencec.github.io/2018/02/13/chrome-devtools/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ClarenceChen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ClarenceC">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Chrome Devtools 开发者工具简述</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-13T11:26:35+08:00">
+                2018-02-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-05T17:05:46+08:00">
+                2018-03-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="/2018/02/13/chrome-devtools/chrome-devtools-1024x512.png" rel="gallery_ck6t4a78r001do256ibip76hu"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2018/02/13/chrome-devtools/chrome-devtools-1024x512.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <p>现在做显示设备适配越来越复杂了,不单只要调试Web端设置还得要兼容手持端各尺寸的手持端设备,当然还有越来越广泛的生态应用 PWA SPA 等,都是在展示的网页都成App形式存在了,不在像以前的网页简单的页面与后台反馈.<br>所以前端也需要一个优秀的工具来测量调试. Chrome Devtools 应运而生, Chrome Devtools 提供了强大的调试测量功能,下面我们简称 Chrome 开发者工具, Chrome 开发者工具是一套内置在Google Chrome中Web开发和调试工具.使用开发者工具来重演，调试和剖析您的网站. 下面我们看看 Chrome 开发者工具有那些功能可以帮助到前端开发者的. 本文主要是对 Chrome 开发者工具的功能介绍，具体功能操作步骤请查看 Chrome Devtools 的使用手册，(由于Chrome 开发者工具更新得很快,看到这文章的时候可能和现在这个版本不一致,功能还是差不多的,我会尽力更新)。</p>
+<a id="more"></a>
+<h1 id="面板功能"><a href="#面板功能" class="headerlink" title="面板功能"></a>面板功能</h1><h2 id="元素面板"><a href="#元素面板" class="headerlink" title="元素面板"></a>元素面板</h2><p>使用元素面板可以自由的操作DOM和CSS来重演网站布局和设计页面,可以检查和调整页面编辑样式,修改DOM。<br><img src="/2018/02/13/chrome-devtools/elements-panel.png" alt="image"></p>
+<h3 id="检查和编辑页面与样式"><a href="#检查和编辑页面与样式" class="headerlink" title="检查和编辑页面与样式"></a>检查和编辑页面与样式</h3><p>在元素面板这里可以实时检查 HTML 和 CSS ，和编辑 DOM 非常方便。在开发者工具这里你看到有什么实时的页面问题都可以现场调，现场试不过一般都是临时更改，如果你想更改过后直接影响到你开发的源文件，你需要额外的设置才能把你的调试修改直接更新到源文件。</p>
+<h3 id="检查动画"><a href="#检查动画" class="headerlink" title="检查动画"></a>检查动画</h3><p>现在网站页面这么大型，通常CSS3动画过渡也非常多，开发者工具还提供动画检查器，非常之强大。<br><img src="/2018/02/13/chrome-devtools/annotated-animation-inspector.png" alt="image"></p>
+<h3 id="移动设备模拟模式"><a href="#移动设备模拟模式" class="headerlink" title="移动设备模拟模式"></a>移动设备模拟模式</h3><p>在元素面板，有一个小功能，隐藏得很深不过可以，在开发者工具这里模拟移动端设备页面和打造自适应式网站，我们看一下下图。</p>
+<p><img src="/2018/02/13/chrome-devtools/device-mode-initial-view.png" alt="image"><br>就是这样的一个小地方。</p>
+<p>在这里可以设置手持端口模式，自定义窗口大小，大小屏都能模拟，屏幕反转，缩放大小都轻松模拟，当然还有地定位与加速度计，移动端传感器等，方便调试非常实用。<br><img src="/2018/02/13/chrome-devtools/device-mode.png" alt="image"></p>
+<p>控制台日志是一种可以检查你的页面或应用所进行操作的强大方式。console.log也有很多种的操作方法。</p>
+<ul>
+<li><code>console.info()</code> 带信息符的控制台提示</li>
+<li><code>console.log()</code> 在控制台进行基本记录</li>
+<li><code>console.error()</code> 在控制台进行错误记录</li>
+<li><code>console.warn()</code>   在控制台进行警告</li>
+<li><code>console.group()</code> <code>console.groupEnd()</code> 对控制台进行分类</li>
+<li><code>console.groupCollapsed()</code> 创建一个折叠状态的记录</li>
+<li><code>console.assert(expression, object)</code> 在控制台显示条件性错误消息,在代码中放置断言和引发异常</li>
+<li><code>console.dir()</code> 将 DOM 元素格式化为 JavaScript 对象</li>
+<li><code>console.dirxml()</code> 输出 object 元素以XML表示</li>
+<li><code>console.table()</code> 将对象信息以表格形式进行显示</li>
+<li><code>console.time()</code> <code>onsole.timeEnd()</code> 统计时间开始与时间结束</li>
+<li><code>console.count()</code> 对执行语句进行统计</li>
+<li><code>console.trace()</code> 打印当前的 JavaScript 调用堆栈</li>
+<li><code>console.clear()</code> 清除控制台</li>
+<li><code>console.debug()</code> 打印调试代码</li>
+<li><code>console.profile()</code>  <code>console.profileEnd()</code> 打印一个 JavaScript CPU 的配置文件。</li>
+</ul>
+<h3 id="监控事件"><a href="#监控事件" class="headerlink" title="监控事件"></a>监控事件</h3><ul>
+<li>monitorEvents() 监控特定的事件</li>
+<li>unmonitorEvents() 解除监控特定的事件</li>
+<li>getEventListeners() 返回指定对象上注册的事件侦听器</li>
+</ul>
+<h2 id="控制台面板"><a href="#控制台面板" class="headerlink" title="控制台面板"></a>控制台面板</h2><p>在开发期间，可以使用控制台面板记录诊断信息，或者使用它作为 shell在页面上与JavaScript交互,并测试 JavaScript 的运行情况, 模拟实际网页变量环境都是很不错的。<br><img src="/2018/02/13/chrome-devtools/console-panel.png" alt="image"></p>
+<h2 id="源代码面板"><a href="#源代码面板" class="headerlink" title="源代码面板"></a>源代码面板</h2><p>在源代码面板中设置断点来调试 JavaScript ,可以跟踪 JavaScript 源码的运行情况,可以编写小代码来测试网站源码, 可以通过Workspaces（工作区）连接本地文件来使用开发者工具的实时编辑器, 把调试结果直接保存到代码中非常强大。<br><img src="/2018/02/13/chrome-devtools/sources-panel.png" alt="image"></p>
+<p>在源代码面板，可以使用断点暂停代码，重现错误，跟IDE的断点调试一样，可以逐步调试，查看变量与逻辑是否正确。</p>
+<h3 id="查看网络文件"><a href="#查看网络文件" class="headerlink" title="查看网络文件"></a>查看网络文件</h3><p>你可以在源代码面板上面查看被加载的源文件，你点击里面的 Network 面板可以查看各加截到网站的 js 文件和其它文件。<br><img src="/2018/02/13/chrome-devtools/sources-network-pane.png" alt="image"></p>
+<h3 id="运行代码段"><a href="#运行代码段" class="headerlink" title="运行代码段"></a>运行代码段</h3><p>代码段是您可以在 Chrome DevTools 的 Sources 面板中制作和执行的小脚本。 您可以从任何页面访问和运行它们。 在您运行代码段时，它会从当前已打开页面的上下文执行。代码段可以实现很多功能比如加载其它js检测页面，运行代码段协助检测网页脚本。还可以设置断点检查代码运行过程。<br><img src="/2018/02/13/chrome-devtools/unsaved-snippet.png" alt="image"></p>
+<h3 id="编辑-CSS-和-JavaScript"><a href="#编辑-CSS-和-JavaScript" class="headerlink" title="编辑 CSS 和 JavaScript"></a>编辑 CSS 和 JavaScript</h3><p>可以编写现场修改 CSS 和 JavaScript, 修改CSS会立刻在网页页面生效，修改JavaScript 文件的话，你修改后得保存后再运行才会生效。你甚至可以直接在开发者工具修改直接保存在你的系统文件当中，不过直接影响你的系统文件需要<a href="https://developers.google.com/web/tools/chrome-devtools/sources?hl=zh-cn#workspace" target="_blank" rel="noopener">设置</a>.</p>
+<h3 id="运行代码小片段"><a href="#运行代码小片段" class="headerlink" title="运行代码小片段"></a>运行代码小片段</h3><p>这个厉害了，可以在一个网站应用场景下面,运行代友小片段，你可以运行测试代码，检测代码，甚至任何做坏事的代码。下面就有一个小片段：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>)</span><br><span class="line">script.src = <span class="string">'https://code.jquery.com/jquery-3.2.1.min.js'</span></span><br><span class="line">script.crossOrigin = <span class="string">'anonymous'</span></span><br><span class="line">script.integrity =  <span class="string">'sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='</span>;</span><br><span class="line"><span class="built_in">document</span>.head.appendChild(script)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/02/13/chrome-devtools/snippet.png" alt="image"><br>在小片段界面，添加上面这个小片段，运行后就能就能为页面添加 jQuery library 的库。</p>
+<h3 id="调试JavaScript"><a href="#调试JavaScript" class="headerlink" title="调试JavaScript"></a>调试JavaScript</h3><p>在源代码面板，可以断点调试 JavaScript，审查变量的值和在特定时刻所调用的堆栈。<br>一旦你设置了断点，你应该学习如何遍历你的代码，并审查你的变量和调用堆栈。 这可以很好地判断逻辑过程快速排错，这功能经常会使用到。</p>
+<h2 id="网络面板"><a href="#网络面板" class="headerlink" title="网络面板"></a>网络面板</h2><p>使用网络面板了解请求和下载的资源文件并优化网页加载性能, 并可以了解网络访问资源情况, http请求情况评估网站的网络性能,优化加载时序和模拟不同网络情况下网站的情况。<br><img src="/2018/02/13/chrome-devtools/network.png" alt="image"></p>
+<p>除了网页的构建运行性能外，网络的环境和资源请求的性能也是一个很重要的指标，所以 Chrome 开发者工具这里就提供了一个网络面板， 来录制你的网站资源下载情况，来判断网络资源情况，还能查看资料加载时序，HTTP的请求情况，<br>和返回结果等，详细的网络资源结果。</p>
+<h3 id="可以模拟手持端网络"><a href="#可以模拟手持端网络" class="headerlink" title="可以模拟手持端网络"></a>可以模拟手持端网络</h3><p><img src="/2018/02/13/chrome-devtools/get-started-setup.svg" alt="image"></p>
+<h3 id="可以分析资源请求情况"><a href="#可以分析资源请求情况" class="headerlink" title="可以分析资源请求情况"></a>可以分析资源请求情况</h3><p><img src="/2018/02/13/chrome-devtools/get-started-post-load.png" alt="image"></p>
+<h2 id="性能面板Performance-原：时间轴面板-Timeline"><a href="#性能面板Performance-原：时间轴面板-Timeline" class="headerlink" title="性能面板Performance [原：时间轴面板 Timeline]"></a>性能面板Performance [原：时间轴面板 Timeline]</h2><p>当你的页面运行的时候，在性能面板能够统计有多少执行程序运行与加载，并且使用性能面板去分析运行性能。<br>使用时间轴面板可以通过记录和查看网站生命周期内发生的各种事件来提高页面的运行时性能,还能设置 Timeline 来监控某一时间的GPU FPS 等各运行情况，非常强大。<br><img src="/2018/02/13/chrome-devtools/timeline-panel.png" alt="image"></p>
+<p>可以录制CPU分析，来查看每个函数或者渲染加载时间，chrome 开发者工具能以 火焰图查看CPU可视化情况，在火焰图中你可以很直接地看到，网站建个构建结构，CSS样式构建时间，DOM渲染时间加载时间，Script运行时间，非常方便地测量统计各时间占比，可以很好地对某些运行时间特长，或者可疑的方法进行定点，可以定点到JavaScript文件，行数及方法，进行修改或重写。</p>
+<h2 id="内存面板Memory-原：Profiles面板"><a href="#内存面板Memory-原：Profiles面板" class="headerlink" title="内存面板Memory [原：Profiles面板]"></a>内存面板Memory [原：Profiles面板]</h2><p>内存面板,可以录制包括内存泄漏，内存膨胀和频繁的垃圾回收情况,和 CPU 运行文件情况.<br><img src="/2018/02/13/chrome-devtools/memory.png" alt="image"></p>
+<p>在内存面板里面，可以记录系统运行的快照</p>
+<h3 id="JavaScript-CPU-快照"><a href="#JavaScript-CPU-快照" class="headerlink" title="JavaScript CPU 快照"></a>JavaScript CPU 快照</h3><h3 id="JavaScript-栈快照"><a href="#JavaScript-栈快照" class="headerlink" title="JavaScript 栈快照"></a>JavaScript 栈快照</h3><h3 id="JavaScript-栈内存分析器"><a href="#JavaScript-栈内存分析器" class="headerlink" title="JavaScript 栈内存分析器"></a>JavaScript 栈内存分析器</h3><p>通过内存快照，可以横向或者纵向分析内存，检查DOM对象，原生对象，Script对象的构建情况，检查垃圾回收的对象情况，检查有没有内存泄露等情况。</p>
+<h2 id="应用面板"><a href="#应用面板" class="headerlink" title="应用面板"></a>应用面板</h2><p>使用资源面板检查加载的所有资源，包括IndexedDB与Web SQL数据库，本地和会话存储，cookie，应用程序缓存，图像，字体和样式表。PWA 的数据保存或者 Cookies,SessionStorage,LocalStorage 等数据文件都保存在这里,包含开发者工具的后台运数据都会保存到这里.<br><img src="/2018/02/13/chrome-devtools/application.png" alt="image"></p>
+<h3 id="调试-Progressive-Web-App"><a href="#调试-Progressive-Web-App" class="headerlink" title="调试 Progressive Web App"></a>调试 Progressive Web App</h3><p>Application 是用来调试配置 PWA 的好地方</p>
+<ul>
+<li><p><strong>Manifest Web</strong> 应用程序清单在一个JSON文本文件中提供有关应用程序的信息（如名称，作者，图标和描述）。manifest 的目的是将Web应用程序安装到设备的主屏幕，为用户提供更快的访问和更丰富的体验。</p>
+</li>
+<li><p><strong>Service Workers</strong> 是未来 web 平台的基本技术。它们是在浏览器后台运行的脚本，与网页分离。这些脚本使您可以访问功能，而不需要网页或用户交互，如推送通知，后台同步，和离线体验。</p>
+</li>
+<li><p><strong>Cache Storage</strong> 提供了一个已使用（服务工作线程）Cache API 缓存的只读资源列表。</p>
+</li>
+<li><strong>Storage</strong> 浏览器基本的数据存储的数据也在这里了.包括 LocalStorage SessionStorage Cookies 等。</li>
+</ul>
+<p><img src="/2018/02/13/chrome-devtools/sw.png" alt="image"></p>
+<p>PWA 是一个将来的应用，使用户用 Web 体验原生应用.这个可以多留意一下，另外还要注意 <strong>Storage</strong> 因为浏览器存储的数据都要在这里找。  </p>
+<h3 id="检查存储Web-数据库与缓存"><a href="#检查存储Web-数据库与缓存" class="headerlink" title="检查存储Web,数据库与缓存"></a>检查存储Web,数据库与缓存</h3><p>Application 面板还能检查Web页面的管理存储，数据与缓存。</p>
+<ul>
+<li><strong>Local storage</strong> (本地存储) </li>
+<li><strong>Session storage</strong> (会话存储)</li>
+<li><strong>cookies</strong></li>
+<li><strong>IndexedDB</strong></li>
+<li><strong>Web SQL</strong></li>
+<li><strong>Application Cache</strong></li>
+</ul>
+<p>三种主流存储地方都可以在这里，甚至还有 Web SQL等存储方式，这里可以查到在网页应用中保存的数据，可以修改保存在 Web 页面的数据，删除旧的网页数据。</p>
+<h2 id="安全面板"><a href="#安全面板" class="headerlink" title="安全面板"></a>安全面板</h2><p>使用安全面板调试混入内容问题，您的证书的安全隐患及更多.<br><img src="/2018/02/13/chrome-devtools/security-panel.png" alt="image"></p>
+<p>这里可以网页的安全性比如 HTTPS 并且查看各源证书的安全情况.<br><img src="/2018/02/13/chrome-devtools/overview-secure.png" alt="image"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>感谢你对我的支持 让我继续努力分享有用的技术和知识点.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/wechat-reward-image.jpg" alt="ClarenceChen WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/alipay-reward-image.jpg" alt="ClarenceChen Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-link">
+      <strong>本文作者：</strong>
+        <a href="/" title="欢迎访问ClarenceChen的个人博客">ClarenceChen</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文标题：</strong>
+        <a href="https://clarencec.github.io/2018/02/13/chrome-devtools/" title="Chrome Devtools 开发者工具简述">Chrome Devtools 开发者工具简述</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+        <a href="https://clarencec.github.io/2018/02/13/chrome-devtools/" title="Chrome Devtools 开发者工具简述">https://clarencec.github.io/2018/02/13/chrome-devtools/</a>
+    </li>
+    <li class="post-copyright-date">
+      <strong>发布时间：</strong>  2018年2月13日-11时02分
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明：</strong>
+        本文由 ClarenceChen 原创，本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！ 并保留以上声明信息！
+    </li>
+  </ul>
+  
+  <!--<ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ClarenceChen
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://clarencec.github.io/2018/02/13/chrome-devtools/" title="Chrome Devtools 开发者工具简述">https://clarencec.github.io/2018/02/13/chrome-devtools/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>-->
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tool/" rel="tag"><!-- <i class="fa fa-tag" ></i> --> tool</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/04/Microbenchmark-for-JavaScript-By-Hax-NOTES/" rel="next" title="D2 贺老 JavaScript Microbenchmark 测试的总结">
+                <i class="fa fa-chevron-left"></i> D2 贺老 JavaScript Microbenchmark 测试的总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/09/JSthings-You-never-knew-existed/" rel="prev" title="你不知道的JS">
+                你不知道的JS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container" class="not_borden_link"></div>
+      <script type='text/javascript'>
+          var gitalk = new Gitalk({
+            id: window.location.pathname,
+            clientID: 'abb004cd7f8a1605e527',
+            clientSecret: '5795184c99ea1897477f834da08a20b2a2dc8335',
+            repo: 'ClarenceC.github.io',
+            owner: 'ClarenceC',
+            admin: ['ClarenceC'],
+            enableHotKey: true,
+            perPage: 10
+          })
+          gitalk.render('gitalk-container')
+      </script>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460"
+               alt="ClarenceChen" />
+          <p class="site-author-name" itemprop="name">ClarenceChen</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://calpa.me" title="Calpa" target="_blank">Calpa</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leviding.com" title="LeviDing" target="_blank">LeviDing</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#面板功能"><span class="nav-number">1.</span> <span class="nav-text">面板功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元素面板"><span class="nav-number">1.1.</span> <span class="nav-text">元素面板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查和编辑页面与样式"><span class="nav-number">1.1.1.</span> <span class="nav-text">检查和编辑页面与样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查动画"><span class="nav-number">1.1.2.</span> <span class="nav-text">检查动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移动设备模拟模式"><span class="nav-number">1.1.3.</span> <span class="nav-text">移动设备模拟模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监控事件"><span class="nav-number">1.1.4.</span> <span class="nav-text">监控事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制台面板"><span class="nav-number">1.2.</span> <span class="nav-text">控制台面板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源代码面板"><span class="nav-number">1.3.</span> <span class="nav-text">源代码面板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看网络文件"><span class="nav-number">1.3.1.</span> <span class="nav-text">查看网络文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行代码段"><span class="nav-number">1.3.2.</span> <span class="nav-text">运行代码段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑-CSS-和-JavaScript"><span class="nav-number">1.3.3.</span> <span class="nav-text">编辑 CSS 和 JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行代码小片段"><span class="nav-number">1.3.4.</span> <span class="nav-text">运行代码小片段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调试JavaScript"><span class="nav-number">1.3.5.</span> <span class="nav-text">调试JavaScript</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络面板"><span class="nav-number">1.4.</span> <span class="nav-text">网络面板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可以模拟手持端网络"><span class="nav-number">1.4.1.</span> <span class="nav-text">可以模拟手持端网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以分析资源请求情况"><span class="nav-number">1.4.2.</span> <span class="nav-text">可以分析资源请求情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能面板Performance-原：时间轴面板-Timeline"><span class="nav-number">1.5.</span> <span class="nav-text">性能面板Performance [原：时间轴面板 Timeline]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存面板Memory-原：Profiles面板"><span class="nav-number">1.6.</span> <span class="nav-text">内存面板Memory [原：Profiles面板]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-CPU-快照"><span class="nav-number">1.6.1.</span> <span class="nav-text">JavaScript CPU 快照</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-栈快照"><span class="nav-number">1.6.2.</span> <span class="nav-text">JavaScript 栈快照</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-栈内存分析器"><span class="nav-number">1.6.3.</span> <span class="nav-text">JavaScript 栈内存分析器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用面板"><span class="nav-number">1.7.</span> <span class="nav-text">应用面板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调试-Progressive-Web-App"><span class="nav-number">1.7.1.</span> <span class="nav-text">调试 Progressive Web App</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查存储Web-数据库与缓存"><span class="nav-number">1.7.2.</span> <span class="nav-text">检查存储Web,数据库与缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全面板"><span class="nav-number">1.8.</span> <span class="nav-text">安全面板</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ClarenceChen</span>
+</div>
+
+
+<div class="powered-by">
+  Theme by <a class="theme-link" href="https://hexo.io">Hexo</a>  
+</div>
+
+<div class="theme-info">
+  <!-- 主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a> -->
+  <!-- Design by  -
+  ClarenceChen -->
+  <div>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

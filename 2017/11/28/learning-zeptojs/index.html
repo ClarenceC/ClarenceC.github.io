@@ -1,0 +1,1024 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="ENGEwRfibcs7AAyY_jQo4iWP2sCsk_QIPtjT7PL6imU" />
+<meta name="baidu-site-verification" content="WzcXc12auM" />
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.css.network/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,Zepto," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言在学习的过程中,学会阅读源码也是一种很好的过程,但是对于一个新手来说,阅读源码就像一面茫然,下载了源码不知道从何开始.这里楼主选择从Zepto源码开始学习.首先因为Zepto并不复杂,Zepto实现功能还是比较简单, Zepto是类似于Jquery的轻量库,不过作用于手机端,类似于Jquery对DOM操作进行拼接,">
+<meta name="keywords" content="JavaScript,Zepto">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zepto.JS 源码的学习">
+<meta property="og:url" content="https://clarencec.github.io/2017/11/28/learning-zeptojs/index.html">
+<meta property="og:site_name" content="ClarenceC">
+<meta property="og:description" content="前言在学习的过程中,学会阅读源码也是一种很好的过程,但是对于一个新手来说,阅读源码就像一面茫然,下载了源码不知道从何开始.这里楼主选择从Zepto源码开始学习.首先因为Zepto并不复杂,Zepto实现功能还是比较简单, Zepto是类似于Jquery的轻量库,不过作用于手机端,类似于Jquery对DOM操作进行拼接,Zepto对PC端的IE浏览器兼容并没有做得很好,需然大小比Jquery小但是也">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.css88.com/doc/zeptojs_api/logo.png">
+<meta property="og:updated_time" content="2017-12-02T03:36:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zepto.JS 源码的学习">
+<meta name="twitter:description" content="前言在学习的过程中,学会阅读源码也是一种很好的过程,但是对于一个新手来说,阅读源码就像一面茫然,下载了源码不知道从何开始.这里楼主选择从Zepto源码开始学习.首先因为Zepto并不复杂,Zepto实现功能还是比较简单, Zepto是类似于Jquery的轻量库,不过作用于手机端,类似于Jquery对DOM操作进行拼接,Zepto对PC端的IE浏览器兼容并没有做得很好,需然大小比Jquery小但是也">
+<meta name="twitter:image" content="http://www.css88.com/doc/zeptojs_api/logo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://clarencec.github.io/2017/11/28/learning-zeptojs/"/>
+
+
+
+
+
+  <title>Zepto.JS 源码的学习 | ClarenceC</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108076069-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f52aaaa378f60976a5872e1d6becf65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ClarenceC</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<!--gitalk function -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<!--baidu SEO autoGet-->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://clarencec.github.io/2017/11/28/learning-zeptojs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ClarenceChen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ClarenceC">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Zepto.JS 源码的学习</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-28T22:32:02+08:00">
+                2017-11-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-12-02T11:36:43+08:00">
+                2017-12-02
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="http://www.css88.com/doc/zeptojs_api/logo.png" rel="gallery_ck6t4a78y001mo2561m6ilnjh"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://www.css88.com/doc/zeptojs_api/logo.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在学习的过程中,学会阅读源码也是一种很好的过程,但是对于一个新手来说,阅读源码就像一面茫然,下载了源码不知道从何开始.这里楼主选择从Zepto源码开始学习.首先因为Zepto并不复杂,Zepto实现功能还是比较简单, Zepto是类似于Jquery的轻量库,不过作用于手机端,类似于Jquery对DOM操作进行拼接,Zepto对PC端的IE浏览器兼容并没有做得很好,需然大小比Jquery小但是也没有Jquery做得那么好.</p>
+<h1 id="阅读源码需要具备什么条件"><a href="#阅读源码需要具备什么条件" class="headerlink" title="阅读源码需要具备什么条件"></a>阅读源码需要具备什么条件</h1><p>在阅读源码时需要准备些什么,你才能读懂:</p>
+<ol>
+<li><p>在阅读源码之前你需要知道这个源码的功能和作用是什么?实现什么功能?越清楚你就越容易看懂.</p>
+</li>
+<li><p>在阅读源码之前你需要把源码的文档,或者测试用例看一次.</p>
+</li>
+<li><p>找到源码的入口,暴露在全局的入口.如果你找不准代码看起来就像一团乱麻,得找到线头入口.</p>
+</li>
+<li><p>读源码的时候需要,得先把源码的代码结构先弄清楚,细节的代码逻辑再慢慢整理.</p>
+</li>
+</ol>
+<a id="more"></a>
+<h1 id="从-入口开始分析"><a href="#从-入口开始分析" class="headerlink" title="从$入口开始分析"></a>从<em>$</em>入口开始分析</h1><p>在你细细看过Zepto 文档后,基本发现Zepto都是通过<em>$</em>使用的.<em>$</em>是什么?在网页脚本中导入后,<em>$</em>是调用Zepto的入口,我们再详细查看一下Zepto下面的方法,如下图分成了两类:</p>
+<p><img src="/2017/11/28/learning-zeptojs/20171116152052.png" alt="image"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 一类是核心方法</span></span><br><span class="line">$.camelCase()</span><br><span class="line"><span class="comment">// 另一类是</span></span><br><span class="line">$(<span class="string">'&lt;li&gt;new list item&lt;/li&gt;'</span>).appendTo(<span class="string">'ul'</span>)</span><br></pre></td></tr></table></figure>
+<p>区别在于核心方法是挂在<em>$</em>对象上面的,<br>另一个是挂在<em>$()</em>生成的对象上面的.</p>
+<p>我们可以测试一下:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./zepto.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"title"</span>&gt;</span><span class="tag">&lt;<span class="name">title</span>&gt;</span>Zepto Demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"ul"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>One<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>Two<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>Three<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"span"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>Monday<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>Thusday<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>Wesday<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>输出一下下面代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log($.prototype);</span><br><span class="line"><span class="built_in">console</span>.log($(<span class="string">"#title"</span>));</span><br><span class="line"><span class="built_in">console</span>.log($);</span><br></pre></td></tr></table></figure></p>
+<p>你会发现这的确很大区别的<br><img src="/2017/11/28/learning-zeptojs/20171116160103.png" alt="image"></p>
+<h1 id="Zepto源码结构"><a href="#Zepto源码结构" class="headerlink" title="Zepto源码结构"></a>Zepto源码结构</h1><p>在引入Zepto后,<em>$</em>是一个window的一个全局变量.</p>
+<h2 id="Zepto核心闭包与返回"><a href="#Zepto核心闭包与返回" class="headerlink" title="Zepto核心闭包与返回$"></a>Zepto核心闭包与返回<em>$</em></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Zepto = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  <span class="keyword">return</span> $</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.Zepto = Zepto</span><br><span class="line"><span class="built_in">window</span>.$ === <span class="literal">undefined</span> &amp;&amp; (<span class="built_in">window</span>.$ = Zepto)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>zepto核心其实是一个立即执行的闭包对象,通过定义为一个对象,赋值给window.<em>$</em>, 这样不会污染全局环境,防止了包里面的方法和命名冲突.</p>
+<p>我们可以看到最后把最后把<em>$</em>返回给Zepto对象,那在Zepto立刻执行方法里面的<em>$</em>是什么呢?下面我们来一步一步实现Zepto包最简单的架构,解释<em>$</em>是什么.</p>
+<p>继续接上代码</p>
+<blockquote>
+<p>定义<em>$</em>变量,交给zepto.init方法处理细节 </p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对全局暴露Zepto变量</span></span><br><span class="line"><span class="keyword">var</span> Zepto = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 定义$变量</span></span><br><span class="line">  <span class="keyword">var</span> $,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// [NEW]定义$变量，并将具体细节交给zepto.init处理</span></span><br><span class="line">  $ = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> zepto.init(selector, context)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回变量</span></span><br><span class="line">  <span class="keyword">return</span> $</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把Zepto变量挂载在window</span></span><br><span class="line"><span class="built_in">window</span>.Zepto = Zepto</span><br><span class="line"><span class="comment">// 当$变量没有被占用的时候，为Zepto设置别名为$</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>添加zepto.init方法,添加zepto对象</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对全局暴露Zepto变量</span></span><br><span class="line"><span class="keyword">var</span> Zepto = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定义$变量</span></span><br><span class="line">  <span class="keyword">var</span> $,</span><br><span class="line">  <span class="comment">// [NEW] 初始化zepto变量为对象</span></span><br><span class="line">    zepto = &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// [NEW] 添加初始化方法。当selector参数为空时，则交给zepto.Z()处理</span></span><br><span class="line">  <span class="comment">//        当selector为字符串时则把zepto.qsa(document, selector)的值存到dom变量</span></span><br><span class="line">  <span class="comment">//        并且交给zepto.Z(dom, selector)处理</span></span><br><span class="line">  <span class="comment">//        在源码中 zepto.init是一个过滤方法判断传入$()里面是什么参数,源码里面会有各种判断然后导入各种方法创建DOM</span></span><br><span class="line">  <span class="comment">//        我们的简包里面只是简单判断字符型或者qsa类型</span></span><br><span class="line"></span><br><span class="line">  zepto.init = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dom</span><br><span class="line">    <span class="keyword">if</span> (!selector) <span class="keyword">return</span> zepto.Z()</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> selector == <span class="string">'string'</span>) &#123;</span><br><span class="line">      dom = zepto.qsa(<span class="built_in">document</span>, selector)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> zepto.Z(dom, selector)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定义$变量，并将具体细节交给zepto.init处理</span></span><br><span class="line">  $ = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> zepto.init(selector, context)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回变量</span></span><br><span class="line">  <span class="keyword">return</span> $</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把Zepto变量挂载在window</span></span><br><span class="line"><span class="built_in">window</span>.Zepto = Zepto</span><br><span class="line"><span class="comment">// 当$变量没有被占用的时候，为Zepto设置别名为$</span></span><br><span class="line"><span class="built_in">window</span>.$ === <span class="literal">undefined</span> &amp;&amp; (<span class="built_in">window</span>.$ = Zepto)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>添加Zepto.Z 处理dom</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对全局暴露Zepto变量</span></span><br><span class="line"><span class="keyword">var</span> Zepto = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定义$变量</span></span><br><span class="line">  <span class="keyword">var</span> $,</span><br><span class="line">  <span class="comment">//        初始化zepto变量为对象</span></span><br><span class="line">    zepto = &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// [NEW] 开始正式处理数据。当dom长度为0则不添加内容，</span></span><br><span class="line">  <span class="comment">//        否则逐个将dom数组转换为实例数组</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Z</span>(<span class="params">dom, selector</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i, len = dom ? dom.length : <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) <span class="keyword">this</span>[i] = dom[i]</span><br><span class="line">    <span class="keyword">this</span>.length = len</span><br><span class="line">    <span class="keyword">this</span>.selector = selector || <span class="string">''</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// [NEW] 直接返回一个新的构造函数</span></span><br><span class="line">  zepto.Z = <span class="function"><span class="keyword">function</span>(<span class="params">dom, selector</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Z(dom, selector)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//        添加初始化方法。当selector参数为空时，则交给zepto.Z()处理</span></span><br><span class="line">  <span class="comment">//        当selector为字符串时则把zepto.qsa(document, selector)的值存到dom变量</span></span><br><span class="line">  <span class="comment">//        并且交给zepto.Z(dom, selector)处理</span></span><br><span class="line">  <span class="comment">//        在源码中 zepto.init是一个过滤方法判断传入$()里面是什么参数,源码里面会有各种判断然后导入各种方法创建DOM</span></span><br><span class="line">  <span class="comment">//        我们的简包里面只是简单判断字符型或者使用querySelectorAll类型</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  zepto.init = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dom</span><br><span class="line">    <span class="keyword">if</span> (!selector) <span class="keyword">return</span> zepto.Z()</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> selector == <span class="string">'string'</span>) &#123;</span><br><span class="line">      dom = zepto.qsa(<span class="built_in">document</span>, selector)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> zepto.Z(dom, selector)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定义$变量，并将具体细节交给zepto.init处理</span></span><br><span class="line">  $ = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> zepto.init(selector, context)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// [NEW]使用querySelectorAll(selector)查询DOM</span></span><br><span class="line">  zepto.qsa = <span class="function"><span class="keyword">function</span>(<span class="params">element, selector</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> selector ? element.querySelectorAll(selector) : []</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回变量</span></span><br><span class="line">  <span class="keyword">return</span> $</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把Zepto变量挂载在window</span></span><br><span class="line"><span class="built_in">window</span>.Zepto = Zepto</span><br><span class="line"><span class="comment">// 当$变量没有被占用的时候，为Zepto设置别名为$</span></span><br><span class="line"><span class="built_in">window</span>.$ === <span class="literal">undefined</span> &amp;&amp; (<span class="built_in">window</span>.$ = Zepto)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>现在基本成型了,接下来我们要在$的构造方法上面添加方法</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 定义$变量</span></span><br><span class="line">  <span class="keyword">var</span> $,</span><br><span class="line">  <span class="comment">//        初始化zepto变量为对象</span></span><br><span class="line">    zepto = &#123;&#125;</span><br><span class="line">    class2type = &#123;&#125;, <span class="comment">// [NEW]添加类型对像</span></span><br><span class="line">    emptyArray =[]   <span class="comment">// [NEW]添加空数组</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">//        开始正式处理数据。当dom长度为0则不添加内容，</span></span><br><span class="line">  <span class="comment">//        否则逐个将dom数组转换为实例数组</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Z</span>(<span class="params">dom, selector</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i, len = dom ? dom.length : <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) <span class="keyword">this</span>[i] = dom[i]</span><br><span class="line">    <span class="keyword">this</span>.length = len</span><br><span class="line">    <span class="keyword">this</span>.selector = selector || <span class="string">''</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// [NEW]返回类型,判断对象类型</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">type</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> obj ==<span class="literal">null</span> ? <span class="built_in">String</span>(obj) :</span><br><span class="line">          class2type[toString.call(obj)] || <span class="string">"object"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [NEW]判断是不是window 对象</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">isWindow</span>(<span class="params">obj</span>)  </span>&#123; <span class="keyword">return</span> obj != <span class="literal">null</span> &amp;&amp; obj == obj.window &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [NEW]判断是否数组</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">likeArray</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> length = !!obj &amp;&amp; <span class="string">'length'</span> <span class="keyword">in</span> obj &amp;&amp; obj.length,</span><br><span class="line">            type = $.type(obj)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="string">'function'</span> != type &amp;&amp; !isWindow(obj) &amp;&amp; (</span><br><span class="line">            <span class="string">'array'</span> == type || length === <span class="number">0</span> ||</span><br><span class="line">             (<span class="keyword">typeof</span> length == <span class="string">'number'</span> &amp;&amp; length &gt; <span class="number">0</span> &amp;&amp; (length <span class="number">-1</span>) <span class="keyword">in</span> obj)</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//        直接返回一个新的构造函数</span></span><br><span class="line">  zepto.Z = <span class="function"><span class="keyword">function</span>(<span class="params">dom, selector</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Z(dom, selector)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">//        添加初始化方法。当selector参数为空时，则交给zepto.Z()处理</span></span><br><span class="line">  <span class="comment">//        当selector为字符串时则把zepto.qsa(document, selector)的值存到dom变量</span></span><br><span class="line">  <span class="comment">//        并且交给zepto.Z(dom, selector)处理</span></span><br><span class="line">  <span class="comment">//        在源码中 zepto.init是一个过滤方法判断传入$()里面是什么参数,源码里面会有各种判断然后导入各种方法创建DOM</span></span><br><span class="line">  <span class="comment">//        我们的简包里面只是简单判断字符型或者使用querySelectorAll类型</span></span><br><span class="line">  zepto.init = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dom</span><br><span class="line">    <span class="keyword">if</span> (!selector) <span class="keyword">return</span> zepto.Z()</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> selector == <span class="string">'string'</span>) &#123;</span><br><span class="line">      dom = zepto.qsa(<span class="built_in">document</span>, selector)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> zepto.Z(dom, selector)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定义$变量，并将具体细节交给zepto.init处理</span></span><br><span class="line">  $ = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> zepto.init(selector, context)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// [NEW]给$添加type类型方法</span></span><br><span class="line">  $.type = type</span><br><span class="line"></span><br><span class="line">  <span class="comment">// [NEW]把each 方法绑定在$上面的方法</span></span><br><span class="line">  $.each = <span class="function"><span class="keyword">function</span>(<span class="params">elements, callback</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> i, key</span><br><span class="line">        <span class="keyword">if</span> (likeArray(elements)) &#123;</span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; elements.length; i++)</span><br><span class="line">                <span class="keyword">if</span> (callback.call(elements[i], i, elements[i]) === <span class="literal">false</span>) <span class="keyword">return</span> elements</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (key <span class="keyword">in</span> elements)</span><br><span class="line">                <span class="keyword">if</span> (callback.call(elements[key], key, elements[key]) === <span class="literal">false</span>) <span class="keyword">return</span> elements</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> elements</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用querySelectorAll(selector)查询DOM</span></span><br><span class="line">  zepto.qsa = <span class="function"><span class="keyword">function</span>(<span class="params">element, selector</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> selector ? element.querySelectorAll(selector) : []</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回变量</span></span><br><span class="line">  <span class="keyword">return</span> $</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把Zepto变量挂载在window</span></span><br><span class="line"><span class="built_in">window</span>.Zepto = Zepto</span><br><span class="line"><span class="comment">// 当$变量没有被占用的时候，为Zepto设置别名为$</span></span><br><span class="line"><span class="built_in">window</span>.$ === <span class="literal">undefined</span> &amp;&amp; (<span class="built_in">window</span>.$ = Zepto)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>添加原型链上的方法</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="comment">// 定义$变量</span></span><br><span class="line">  <span class="keyword">var</span> $,</span><br><span class="line">  <span class="comment">//        初始化zepto变量为对象</span></span><br><span class="line">    zepto = &#123;&#125;</span><br><span class="line">    class2type = &#123;&#125;, <span class="comment">// 添加类型对像</span></span><br><span class="line">    emptyArray =[]   <span class="comment">// 添加空数组</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">//        开始正式处理数据。当dom长度为0则不添加内容，</span></span><br><span class="line">  <span class="comment">//        否则逐个将dom数组转换为实例数组</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Z</span>(<span class="params">dom, selector</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i, len = dom ? dom.length : <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) <span class="keyword">this</span>[i] = dom[i]</span><br><span class="line">    <span class="keyword">this</span>.length = len</span><br><span class="line">    <span class="keyword">this</span>.selector = selector || <span class="string">''</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 返回类型,判断对象类型</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">type</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> obj ==<span class="literal">null</span> ? <span class="built_in">String</span>(obj) :</span><br><span class="line">          class2type[toString.call(obj)] || <span class="string">"object"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断是不是window 对象</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">isWindow</span>(<span class="params">obj</span>)  </span>&#123; <span class="keyword">return</span> obj != <span class="literal">null</span> &amp;&amp; obj == obj.window &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断是否数组</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">likeArray</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> length = !!obj &amp;&amp; <span class="string">'length'</span> <span class="keyword">in</span> obj &amp;&amp; obj.length,</span><br><span class="line">            type = $.type(obj)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="string">'function'</span> != type &amp;&amp; !isWindow(obj) &amp;&amp; (</span><br><span class="line">            <span class="string">'array'</span> == type || length === <span class="number">0</span> ||</span><br><span class="line">             (<span class="keyword">typeof</span> length == <span class="string">'number'</span> &amp;&amp; length &gt; <span class="number">0</span> &amp;&amp; (length <span class="number">-1</span>) <span class="keyword">in</span> obj)</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//        直接返回一个新的构造函数</span></span><br><span class="line">  zepto.Z = <span class="function"><span class="keyword">function</span>(<span class="params">dom, selector</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Z(dom, selector)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">//        添加初始化方法。当selector参数为空时，则交给zepto.Z()处理</span></span><br><span class="line">  <span class="comment">//        当selector为字符串时则把zepto.qsa(document, selector)的值存到dom变量</span></span><br><span class="line">  <span class="comment">//        并且交给zepto.Z(dom, selector)处理</span></span><br><span class="line">  <span class="comment">//        在源码中 zepto.init是一个过滤方法判断传入$()里面是什么参数,源码里面会有各种判断然后导入各种方法创建DOM</span></span><br><span class="line">  <span class="comment">//        我们的简包里面只是简单判断字符型或者使用querySelectorAll类型</span></span><br><span class="line">  zepto.init = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dom</span><br><span class="line">    <span class="keyword">if</span> (!selector) <span class="keyword">return</span> zepto.Z()</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> selector == <span class="string">'string'</span>) &#123;</span><br><span class="line">      dom = zepto.qsa(<span class="built_in">document</span>, selector)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> zepto.Z(dom, selector)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定义$变量，并将具体细节交给zepto.init处理</span></span><br><span class="line">  $ = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> zepto.init(selector, context)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 给$添加type类型方法</span></span><br><span class="line">  $.type = type</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 把each 方法绑定在$上面的方法</span></span><br><span class="line">  $.each = <span class="function"><span class="keyword">function</span>(<span class="params">elements, callback</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> i, key</span><br><span class="line">        <span class="keyword">if</span> (likeArray(elements)) &#123;</span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; elements.length; i++)</span><br><span class="line">                <span class="keyword">if</span> (callback.call(elements[i], i, elements[i]) === <span class="literal">false</span>) <span class="keyword">return</span> elements</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (key <span class="keyword">in</span> elements)</span><br><span class="line">                <span class="keyword">if</span> (callback.call(elements[key], key, elements[key]) === <span class="literal">false</span>) <span class="keyword">return</span> elements</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> elements</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// [NEW]在原型链上面添加方法</span></span><br><span class="line">  $.fn = &#123;</span><br><span class="line">        <span class="keyword">constructor</span>: zepto.Z,</span><br><span class="line">        length: 0,</span><br><span class="line">        each: function(callback)&#123;</span><br><span class="line">            emptyArray.every.call(<span class="keyword">this</span>, <span class="function"><span class="keyword">function</span>(<span class="params">el, idx</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> callback.call(el, idx, el) !== <span class="literal">false</span></span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">        &#125;,</span><br><span class="line">        empty: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">this</span>.innerHTML = <span class="string">''</span> &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">        html: <span class="function"><span class="keyword">function</span>(<span class="params">html</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">in</span> <span class="built_in">arguments</span> ?</span><br><span class="line">              <span class="keyword">this</span>.each(<span class="function"><span class="keyword">function</span>(<span class="params">idx</span>)</span>&#123;</span><br><span class="line">                  <span class="keyword">var</span> originHtml = <span class="keyword">this</span>.innerHTML</span><br><span class="line">                  $(<span class="keyword">this</span>).empty().append( funcArg(<span class="keyword">this</span>, html, idx, originHtml) )</span><br><span class="line">              &#125;) : </span><br><span class="line">              (<span class="number">0</span> <span class="keyword">in</span> <span class="keyword">this</span> ? <span class="keyword">this</span>[<span class="number">0</span>].innerHTML : <span class="literal">null</span>)</span><br><span class="line">        &#125;,</span><br><span class="line">        test: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'Test Function'</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用querySelectorAll(selector)查询DOM</span></span><br><span class="line">  zepto.qsa = <span class="function"><span class="keyword">function</span>(<span class="params">element, selector</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> selector ? element.querySelectorAll(selector) : []</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// [NEW] 原型链指向$.fn</span></span><br><span class="line">  <span class="comment">// $.fn对象赋值给Z.prototype Z实例继承$.fn 对象的方法</span></span><br><span class="line">  <span class="comment">// zepto.Z 又继承自$.fn</span></span><br><span class="line">  zepto.Z.prototype = Z.prototype = $.fn</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// [NEW]$.zepto指向zepto</span></span><br><span class="line">  $.zepto = zepto</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回变量</span></span><br><span class="line">  <span class="keyword">return</span> $</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把Zepto变量挂载在window</span></span><br><span class="line"><span class="built_in">window</span>.Zepto = Zepto</span><br><span class="line"><span class="comment">// 当$变量没有被占用的时候，为Zepto设置别名为$</span></span><br><span class="line"><span class="built_in">window</span>.$ === <span class="literal">undefined</span> &amp;&amp; (<span class="built_in">window</span>.$ = Zepto)</span><br></pre></td></tr></table></figure>
+<p>最后我们这里添加了原型链方法,each empty html test,都是定义在<code>$.fn</code>上面.当你调用<code>$()</code>生成DOM之后会返回一个Z对象,就是在<code>Z.prototype = $.fn</code>将<code>$.fn</code>继承到Z对象上面的.<br>然之前定义的<code>$.each()</code>是定义在<code>$</code>核心构造方法上面的,两个调用的方式也不一样.</p>
+<p>在<code>Z.prototype = $.fn</code>继承后,为什么还要<code>zepto.Z.prototype = Z.prototype</code>呢?</p>
+<p>如果我们再看源码，会发现有这样的一个方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">zepto.isZ = <span class="function"><span class="keyword">function</span>(<span class="params">object</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> object <span class="keyword">instanceof</span> zepto.Z</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个方法是用来判读一个对象是否为 zepto 对象，这是通过判断这个对象是否为 zepto.Z 的实例来完成的，因此需要将 zepto.Z 和 Z 的 prototype 指向同一个对象。 isZ 方法会在 init 中用到。</p>
+<p>现在可以把自己创造的zepto包导入到自己定义的网页当中.你会注意到刚才自己定义的方法已经可以使用了.</p>
+<p><img src="/2017/11/28/learning-zeptojs/20171118105904.png" alt="image"></p>
+<p>测试一下,没问题了.</p>
+<p><code>$(&#39;#test&#39;).test()</code></p>
+<p>下面看一下zepto结构的图: <a href="https://www.kancloud.cn/wangfupeng/zepto-design-srouce/173692" target="_blank" rel="noopener">转至wangfupeng博客图</a></p>
+<p><img src="/2017/11/28/learning-zeptojs/2016-07-04_577a764dc04f6.png" alt="image"></p>
+<p>在清楚大概程序答建结构后,就可以细看分支了,可以细看每一个方法是怎样实现的.</p>
+<h1 id="细节实现"><a href="#细节实现" class="headerlink" title="细节实现"></a>细节实现</h1><p>当你观看细节方法功能实现的时候,看到的是不一样的东西,比如是JavaScript数组的处理,全局window对象的判断,原生JavaScript方法操作等,学到的东西是不一样的,值得细细学习,不过细节方法实现我不一一详解了,我看到另一作者写得很详细的,如果有兴趣的读者可以深入研究一下,下面给出相关作者连接:</p>
+<blockquote>
+<p>作者 <strong>yeyuqiudeng</strong><br>读 Zepto 源码，分析 Zepto 源码 <a href="https://github.com/yeyuqiudeng/reading-zepto" target="_blank" rel="noopener">连接</a></p>
+</blockquote>
+<h1 id="参考连接"><a href="#参考连接" class="headerlink" title="参考连接"></a>参考连接</h1><ol>
+<li>Zepto源码分析（一）核心代码分析 <a href="https://segmentfault.com/a/1190000010860789" target="_blank" rel="noopener">地址</a></li>
+<li>读Zepto源码之代码结构 <a href="http://www.jianshu.com/p/c607811d86cf" target="_blank" rel="noopener">地址</a></li>
+<li>zepto对象思想与源码分析 <a href="https://www.kancloud.cn/wangfupeng/zepto-design-srouce/173691" target="_blank" rel="noopener">地址</a></li>
+<li>zepto源码中关于<code>zepto.Z.prototype = $.fn</code>的问题 <a href="https://segmentfault.com/q/1010000005782663" target="_blank" rel="noopener">地址</a></li>
+<li>zepto源码分析-代码结构<a href="https://segmentfault.com/a/1190000007515865" target="_blank" rel="noopener">地址</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>感谢你对我的支持 让我继续努力分享有用的技术和知识点.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/wechat-reward-image.jpg" alt="ClarenceChen WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/alipay-reward-image.jpg" alt="ClarenceChen Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-link">
+      <strong>本文作者：</strong>
+        <a href="/" title="欢迎访问ClarenceChen的个人博客">ClarenceChen</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文标题：</strong>
+        <a href="https://clarencec.github.io/2017/11/28/learning-zeptojs/" title="Zepto.JS 源码的学习">Zepto.JS 源码的学习</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+        <a href="https://clarencec.github.io/2017/11/28/learning-zeptojs/" title="Zepto.JS 源码的学习">https://clarencec.github.io/2017/11/28/learning-zeptojs/</a>
+    </li>
+    <li class="post-copyright-date">
+      <strong>发布时间：</strong>  2017年11月28日-22时11分
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明：</strong>
+        本文由 ClarenceChen 原创，本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！ 并保留以上声明信息！
+    </li>
+  </ul>
+  
+  <!--<ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ClarenceChen
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://clarencec.github.io/2017/11/28/learning-zeptojs/" title="Zepto.JS 源码的学习">https://clarencec.github.io/2017/11/28/learning-zeptojs/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>-->
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><!-- <i class="fa fa-tag" ></i> --> JavaScript</a>
+          
+            <a href="/tags/Zepto/" rel="tag"><!-- <i class="fa fa-tag" ></i> --> Zepto</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/24/unqiue-array/" rel="next" title="JavaScript数组去重总结">
+                <i class="fa fa-chevron-left"></i> JavaScript数组去重总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/05/JS-for-performance-compare/" rel="prev" title="JS 循环遍历方法的对比">
+                JS 循环遍历方法的对比 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container" class="not_borden_link"></div>
+      <script type='text/javascript'>
+          var gitalk = new Gitalk({
+            id: window.location.pathname,
+            clientID: 'abb004cd7f8a1605e527',
+            clientSecret: '5795184c99ea1897477f834da08a20b2a2dc8335',
+            repo: 'ClarenceC.github.io',
+            owner: 'ClarenceC',
+            admin: ['ClarenceC'],
+            enableHotKey: true,
+            perPage: 10
+          })
+          gitalk.render('gitalk-container')
+      </script>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460"
+               alt="ClarenceChen" />
+          <p class="site-author-name" itemprop="name">ClarenceChen</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://calpa.me" title="Calpa" target="_blank">Calpa</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leviding.com" title="LeviDing" target="_blank">LeviDing</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#阅读源码需要具备什么条件"><span class="nav-number">2.</span> <span class="nav-text">阅读源码需要具备什么条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从-入口开始分析"><span class="nav-number">3.</span> <span class="nav-text">从$入口开始分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Zepto源码结构"><span class="nav-number">4.</span> <span class="nav-text">Zepto源码结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Zepto核心闭包与返回"><span class="nav-number">4.1.</span> <span class="nav-text">Zepto核心闭包与返回$</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#细节实现"><span class="nav-number">5.</span> <span class="nav-text">细节实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考连接"><span class="nav-number">6.</span> <span class="nav-text">参考连接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ClarenceChen</span>
+</div>
+
+
+<div class="powered-by">
+  Theme by <a class="theme-link" href="https://hexo.io">Hexo</a>  
+</div>
+
+<div class="theme-info">
+  <!-- 主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a> -->
+  <!-- Design by  -
+  ClarenceChen -->
+  <div>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

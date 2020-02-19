@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://clarencec.github.io/2020/02/06/VFM/</loc>
+    
+    <lastmod>2020-02-06T13:09:31.695Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2019/02/04/how-to-accessing-deeply-property-in-safe-JavaScript/</loc>
+    
+    <lastmod>2019-02-11T06:59:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2018/12/27/2018Summary/</loc>
+    
+    <lastmod>2018-12-27T07:59:55.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2018/07/13/%E5%85%B3%E4%BA%8E-zsh-command-not-found/</loc>
+    
+    <lastmod>2018-07-13T06:36:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2018/06/25/DOM/</loc>
+    
+    <lastmod>2018-06-25T03:28:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/09/09/About-JavaScript-compiler-run/</loc>
+    
+    <lastmod>2018-06-12T07:46:57.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2018/03/09/JSthings-You-never-knew-existed/</loc>
+    
+    <lastmod>2018-03-09T14:05:35.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2018/02/04/Microbenchmark-for-JavaScript-By-Hax-NOTES/</loc>
+    
+    <lastmod>2018-03-09T14:00:47.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/09/11/About-JavaScript-heap-stack/</loc>
+    
+    <lastmod>2018-03-06T01:20:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2018/02/13/chrome-devtools/</loc>
+    
+    <lastmod>2018-03-05T09:05:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2018/01/28/css-naming-conventions/</loc>
+    
+    <lastmod>2018-03-05T08:25:03.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/about/index.html</loc>
+    
+    <lastmod>2018-01-27T04:40:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/11/24/unqiue-array/</loc>
+    
+    <lastmod>2018-01-19T00:54:23.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/07/17/%E6%B7%BB%E5%8A%A0Prettier-JavaScript-formatter-%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86vscode-airbnb%E4%BB%A3%E7%A0%81%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96/</loc>
+    
+    <lastmod>2018-01-05T03:14:02.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/12/29/person-summary-2017/</loc>
+    
+    <lastmod>2017-12-30T04:40:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/10/14/Object-create-and-new-JavaScript/</loc>
+    
+    <lastmod>2017-12-25T03:29:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/12/05/JS-for-performance-compare/</loc>
+    
+    <lastmod>2017-12-21T13:29:05.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/07/04/redux%E4%B8%ADaction%E5%92%8Creducer%E8%AE%A4%E8%AF%86%E4%B8%8E%E4%BB%8B%E7%BB%8D/</loc>
+    
+    <lastmod>2017-12-02T04:33:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/07/05/JavaScript%E4%B8%ADreduce-%E6%96%B9%E6%B3%95%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</loc>
+    
+    <lastmod>2017-12-02T04:33:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/07/05/Sass%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%90%86%E8%A7%A3/</loc>
+    
+    <lastmod>2017-12-02T04:32:35.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/07/08/node-sass%E5%AE%89%E8%A3%85%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    
+    <lastmod>2017-12-02T04:32:17.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/07/19/%E9%A1%B9%E7%9B%AE%E4%B8%ADGit-%E6%B3%A8%E6%84%8F%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A7%84%E5%88%99/</loc>
+    
+    <lastmod>2017-12-02T04:31:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/07/25/webpack-%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/</loc>
+    
+    <lastmod>2017-12-02T04:31:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/08/11/git-%E5%90%8C%E6%AD%A5%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFfetch%E5%92%8Cpull/</loc>
+    
+    <lastmod>2017-12-02T04:30:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/08/13/CSS-%E6%80%8E%E6%A0%B7%E5%B1%85%E4%B8%AD-%E5%85%A8/</loc>
+    
+    <lastmod>2017-12-02T04:16:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/08/17/JavaScript%E6%9E%84%E5%BB%BA%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2017-12-02T04:15:55.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/11/22/Node-type/</loc>
+    
+    <lastmod>2017-12-02T03:49:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/11/28/learning-zeptojs/</loc>
+    
+    <lastmod>2017-12-02T03:36:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/06/24/Hello-World-0/</loc>
+    
+    <lastmod>2017-12-01T09:21:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://clarencec.github.io/2017/08/03/%E4%B8%BAhexo-next-%E6%B7%BB%E5%8A%A0%E6%89%93%E8%B5%8F%E5%8A%9F%E8%83%BD/</loc>
+    
+    <lastmod>2017-08-03T14:32:13.000Z</lastmod>
+    
+  </url>
+  
+</urlset>

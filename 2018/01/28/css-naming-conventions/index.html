@@ -1,0 +1,1007 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="ENGEwRfibcs7AAyY_jQo4iWP2sCsk_QIPtjT7PL6imU" />
+<meta name="baidu-site-verification" content="WzcXc12auM" />
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.css.network/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="css,BEM," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="原文链接: css-naming-conventions-that-will-save-you-hours-of-debugging原文作者: Ohans Emmanuel译者: ClarenceC本文为意译  我已经听很多开发者说他们不喜欢CSS。在我的经验来说，造成这样的原因，不是因为要花额外的时间去学CSS。 C">
+<meta name="keywords" content="css,BEM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="良好的CSS命名规则会让你省上上小时的调试时间">
+<meta property="og:url" content="https://clarencec.github.io/2018/01/28/css-naming-conventions/index.html">
+<meta property="og:site_name" content="ClarenceC">
+<meta property="og:description" content="原文链接: css-naming-conventions-that-will-save-you-hours-of-debugging原文作者: Ohans Emmanuel译者: ClarenceC本文为意译  我已经听很多开发者说他们不喜欢CSS。在我的经验来说，造成这样的原因，不是因为要花额外的时间去学CSS。 CSS并不是一门漂亮的‘语言’，但是它也已经成功当了 Web 风格语言">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*YunI3ChUVMlpmFzo75FczQ.png">
+<meta property="og:updated_time" content="2018-03-05T08:25:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="良好的CSS命名规则会让你省上上小时的调试时间">
+<meta name="twitter:description" content="原文链接: css-naming-conventions-that-will-save-you-hours-of-debugging原文作者: Ohans Emmanuel译者: ClarenceC本文为意译  我已经听很多开发者说他们不喜欢CSS。在我的经验来说，造成这样的原因，不是因为要花额外的时间去学CSS。 CSS并不是一门漂亮的‘语言’，但是它也已经成功当了 Web 风格语言">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/2000/1*YunI3ChUVMlpmFzo75FczQ.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://clarencec.github.io/2018/01/28/css-naming-conventions/"/>
+
+
+
+
+
+  <title>良好的CSS命名规则会让你省上上小时的调试时间 | ClarenceC</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108076069-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f52aaaa378f60976a5872e1d6becf65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ClarenceC</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<!--gitalk function -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<!--baidu SEO autoGet-->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://clarencec.github.io/2018/01/28/css-naming-conventions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ClarenceChen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ClarenceC">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">良好的CSS命名规则会让你省上上小时的调试时间</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-28T21:17:18+08:00">
+                2018-01-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-05T16:25:03+08:00">
+                2018-03-05
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="https://cdn-images-1.medium.com/max/2000/1*YunI3ChUVMlpmFzo75FczQ.png" rel="gallery_ck6t4a78t001io2562ye40x4t"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn-images-1.medium.com/max/2000/1*YunI3ChUVMlpmFzo75FczQ.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <blockquote>
+<p>原文链接: <a href="https://medium.freecodecamp.org/css-naming-conventions-that-will-save-you-hours-of-debugging-35cea737d849" target="_blank" rel="noopener">css-naming-conventions-that-will-save-you-hours-of-debugging</a><br>原文作者: <a href="https://medium.freecodecamp.org/@ohansemmanuel?source=post_header_lockup" target="_blank" rel="noopener">Ohans Emmanuel</a><br>译者: <a href="fe2x.cc">ClarenceC</a><br>本文为意译</p>
+</blockquote>
+<p>我已经听很多开发者说他们不喜欢CSS。在我的经验来说，造成这样的原因，不是因为要花额外的时间去学CSS。</p>
+<p>CSS并不是一门漂亮的‘语言’，但是它也已经成功当了 Web 风格语言快20年了。感觉还还不太差啊？</p>
+<p>然而,如果你写大量的CSS，你会很快发现一个很大的缺憾， 是非常困难地去管理维护CSS的。<br>写得很差的CSS很快就会变成恶梦。</p>
+<p>这篇文章的一些命名规则会帮你一些减轻压力和省很多时间在里面。</p>
+<a id="more"></a>
+<h2 id="用‘-’分隔符分隔字符串"><a href="#用‘-’分隔符分隔字符串" class="headerlink" title="用‘-’分隔符分隔字符串"></a>用‘-’分隔符分隔字符串</h2><p>如果你写过大量的JavaScript，那么写变量的时候都会习惯使用 camelcase[驼峰命名]方式。</p>
+<p><code>var redBox = document.getElementById(&#39;...&#39;)</code></p>
+<p>很好，对吗？<br>问题是这个方式不合适CSS。</p>
+<p>千万不能写成这样：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.redBox</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>应该用下面这方式代替：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.red-box</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这是一个非常标准的CSS命名规则，可以有很强的可读性。同时可以说，和CSS属性保持一致。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Correct</span></span><br><span class="line">.some-<span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line">    font-weight: <span class="number">10</span>em</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Wrong</span></span><br><span class="line">.some-<span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line">    fontWeight: <span class="number">10</span>em</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BEM-命名方式"><a href="#BEM-命名方式" class="headerlink" title="BEM 命名方式"></a>BEM 命名方式</h2><p>一个团队就很容易就有不一样写 CSS 选择器的习惯，有些人用分隔符，而另一些会用 BEM 命名规则。</p>
+<p>总的来说, CSS命名方式都是尝试去解决下面这三个问题：</p>
+<ol>
+<li>只要看到CSS的名字，就知道这个选择器是做什么的。</li>
+<li>只要看到CSS的名字，就知道这个选择器那里被使用到。</li>
+<li>只要看到CSS的名字，就知道这个选择器和其它选返选择器之间的关系。</li>
+</ol>
+<p>你是不是看过一些 类名 写成下面这方式:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.nav--secondary</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.nav__header</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是BEM命名方式了</p>
+<h2 id="BEM-已经诞生5年了-我们理解一下BEM是什么。"><a href="#BEM-已经诞生5年了-我们理解一下BEM是什么。" class="headerlink" title="BEM 已经诞生5年了,我们理解一下BEM是什么。"></a>BEM 已经诞生5年了,我们理解一下BEM是什么。</h2><p>BEM 尝试去划分全部用户接口变成可重复使用组件。<br>思考下面这个图：</p>
+<p><img src="/2018/01/28/css-naming-conventions/1_qFy4XIpxbWx4oaOA3TYqpQ.png" alt="image"><br>这个火柴人代表了一个组件，就像一个模块设计。</p>
+<h3 id="B-就是-Block-模块"><a href="#B-就是-Block-模块" class="headerlink" title="B 就是 Block 模块"></a>B 就是 Block 模块</h3><p>你应该猜到在 BEM 全名规则里面 B 就是代表 ‘Block’.<br>在真实世界里面， ‘Block’ 通常用来代表一个网站的 navigation， header, footer 或者其它 block（块）设计元素。</p>
+<p>按照上面解释的描述的，这个用来描述这个块的类名应该是 <code>stick-man</code>。</p>
+<p>这个组件应该像这样描述：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.stick-man</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们在这里使用了分隔符，非常好哈。</p>
+<p><img src="/2018/01/28/css-naming-conventions/1_US1EoM_lvYOeJabGDhV2Eg.png" alt="image"></p>
+<h3 id="E-就是-Elements-元素"><a href="#E-就是-Elements-元素" class="headerlink" title="E 就是 Elements 元素"></a>E 就是 Elements 元素</h3><p>这个在 BEM 里面的E 就是 Elements。一般在整体的块设计当中很少单独存在的。像下面这个实例，火柴人有<code>head</code>，两个华丽的双 <code>arms</code>，和 <code>feet</code>。<br><img src="/2018/01/28/css-naming-conventions/1_MJO2vhGLlkQhTxGPO53YhQ.png" alt="image"></p>
+<p>这些 <code>head</code>,<code>feet</code>, 和 <code>arms</code> 全部的元素都在一个块组件里面，他们就像是子组件一样，像子组件组成大组件一样。<br>我们使用 BEM 命名规则的时候，元素的类名都得在下面加两个下划线 <code>__</code>,就像下面的元素名一样，例如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.stick-man__head</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.stick-man__arms</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.stick-man__feet</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="M-就是-Modifiers-修饰符"><a href="#M-就是-Modifiers-修饰符" class="headerlink" title="M 就是 Modifiers 修饰符"></a>M 就是 Modifiers 修饰符</h3><p>这里的 M 就是代表 BEM 里面的修饰符<br>如果火柴人加上修饰符我们很可能就有了一个 <code>blue</code> 和一个 <code>red</code> 的火柴人？<br><img src="/2018/01/28/css-naming-conventions/1_Uj4IOaEtYynnUUJm_hAdwQ.png" alt="image"></p>
+<p>在实际世界当中，这很可能就变成是一个 <code>red</code> 按钮和一个 <code>blue</code> 按钮，这些就是修饰这个组件块的问题了。<br>在使用 BEM的时候， 要去区分修饰类名，就要添加两个分隔符 <code>--</code> 在元素后面，比如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.stick-man--blue</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.stick-man--red</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>像上面这个例子，是表达出火柴人这个父组件的状态，不过这不是最常见的情况。<br>如果我们想描述火柴人有不同的 <code>head</code> 大小呢？<br><img src="/2018/01/28/css-naming-conventions/1_qTM1TfotfLSRNjZ_PnWtAg.png" alt="image"><br>这次元素被更改了，记着，元素是子组件在整体 Block (块)里面。这个 <code>.stick-man</code> 代表了一个 <code>Block</code>, <code>.stick-man__head</code> 是这个的元素。<br>看一下下面这个例子，连接符应该像这样写:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.stick-man__head--small</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.stick-man__head--big</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再一次注意，上面使用了分隔符 <code>--</code> 代表了修饰的状态。现在你明白了。</p>
+<p>不过这只是基本怎样使用 BEM 命名方式工作而儿拉。</p>
+<p>对于我个人来说，我更倾向于只用 <code>-</code> 分隔符字段名类名来做简单的命名，而 BEM 则涉及更多用户接口的时候使用。</p>
+<p>如果你想阅读更多 BEM 资料可以看这里 <a href="http://getbem.com/naming/" target="_blank" rel="noopener">更多</a> </p>
+<h3 id="为什么要用到命名规则"><a href="#为什么要用到命名规则" class="headerlink" title="为什么要用到命名规则"></a>为什么要用到命名规则</h3><blockquote>
+<p>计算机科学有两大难题：内存失效和命名对象 - Phil Karlton</p>
+</blockquote>
+<p>命名一个对象是非常难的。 我们尝试去另到命名变得更简单，同时在将来维护代码的时候不需要花费太多时间。命名规则如果正确使用在CSS上面，就会使到你的代码更容易去阅读和维护。</p>
+<p>如果你选择用 BEM 命名规则，这会让 CSS 更容易看清组件块之间的关系。是不是感觉不错？</p>
+<h3 id="在-JavaScript-钩子上的-CSS-名称"><a href="#在-JavaScript-钩子上的-CSS-名称" class="headerlink" title="在 JavaScript 钩子上的 CSS 名称"></a>在 JavaScript 钩子上的 CSS 名称</h3><p>今天， John 第一日上班。他提交了 <code>HTML</code> 代码像下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"siteNavigation"</span>&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+<p>John 已经看过这篇文章并认识到好的CSS命名方式，所以他继续重构代码像这：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"site-navigation"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>看起来不错对不？但是有未知道的危险在等待着 John。<br>在某个 JavaScript 的代码里，有一个关联之前 Class 名，的 <code>siteNavigation</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// the Javascript code</span></span><br><span class="line"><span class="keyword">const</span> nav = <span class="built_in">document</span>.querySelector(<span class="string">'.siteNavigation'</span>)</span><br></pre></td></tr></table></figure>
+<p>因为，上面改变了 class 名，这个 nav 变量变成为 null。这是多么低落的，对于这种情况，开发者们都有不同的策略应对方案。</p>
+<ol>
+<li>用 <code>js-</code> 做类名<br>其实中一种方法是用<code>js-*</code>的类名 减少关联 DOM 元素的问题。比如：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"site-navigation js-site-navigation"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>添加 JavaScript 代码:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JavaScript code</span></span><br><span class="line"><span class="keyword">const</span> nav = <span class="built_in">document</span>.querySelector(<span class="string">'.js-site-navigation'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>正如这个命名，任何人看到 <code>js-site-navigation</code> 类名都会明白这是一个关联到 JavaScript DOM 元素的 类名。</p>
+<ol>
+<li>使用 <code>Rel</code> 属性<br>之前看过这个写法吗？<br><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;main.css&quot;&gt;</code><br>基本上，这个 <code>rel</code> 定义了连接资料与文档之间引用的关系。在之前 John 的例子,技术支持者会写成这样：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"site-navigation"</span> rel=<span class="string">"js-site-navigation"</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在 JavaScript 那边：</p>
+<p><code>const nav = document.querySelector(&quot;[rel=&#39;js-site-navigation&#39;]&quot;)</code><br>我对这样使用有点疑惑，但是你们喜欢跨过某些代码，也是没问题的。Web 网页是一个足够大的地方，使它可以用不同方法解决同一个问题。</p>
+<ol>
+<li>不要使用<code>data-attributes</code>属性<br>有些开发者喜欢用<code>data-attributes</code>来做 JavaScript 钩子.这是不对的。从定义上为来说，数据属性是用来存自定义数据的。</li>
+</ol>
+<p><img src="/2018/01/28/css-naming-conventions/1_wYSuEHKyr4gikmoEaq-9jw.png" alt="image"></p>
+<h3 id="小贴士：-写更详细的-CSS-注释"><a href="#小贴士：-写更详细的-CSS-注释" class="headerlink" title="小贴士： 写更详细的 CSS 注释"></a>小贴士： 写更详细的 CSS 注释</h3><p>这不需要你再做什么在命名规则上面了，但它也会另你优化 CSS 更省时间。</p>
+<p>有一些 web 开发者他们几乎不写 JavaScript 注释，但是我觉得你还是应该多写写 CSS 注释的。<br>虽然 CSS 并不是一门优雅的 ‘语言’，但是好的注释构能让你快速明白你的代码。如果你们不相信的话可以看看 Bootstrap 的 <a href="https://github.com/twbs/bootstrap/blob/v4-dev/scss/_carousel.scss" target="_blank" rel="noopener">源码</a>多么好的注释。你不需要写那些 <code>color:red</code> 来标注一个红色标记，但是如果你用一个不明显的 CSS 技巧很快就会忘记了，所以请随意写地去写一些 CSS 注释吧。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>感谢你对我的支持 让我继续努力分享有用的技术和知识点.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/wechat-reward-image.jpg" alt="ClarenceChen WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/alipay-reward-image.jpg" alt="ClarenceChen Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-link">
+      <strong>本文作者：</strong>
+        <a href="/" title="欢迎访问ClarenceChen的个人博客">ClarenceChen</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文标题：</strong>
+        <a href="https://clarencec.github.io/2018/01/28/css-naming-conventions/" title="良好的CSS命名规则会让你省上上小时的调试时间">良好的CSS命名规则会让你省上上小时的调试时间</a>
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+        <a href="https://clarencec.github.io/2018/01/28/css-naming-conventions/" title="良好的CSS命名规则会让你省上上小时的调试时间">https://clarencec.github.io/2018/01/28/css-naming-conventions/</a>
+    </li>
+    <li class="post-copyright-date">
+      <strong>发布时间：</strong>  2018年1月28日-21时01分
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明：</strong>
+        本文由 ClarenceChen 原创，本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！ 并保留以上声明信息！
+    </li>
+  </ul>
+  
+  <!--<ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ClarenceChen
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://clarencec.github.io/2018/01/28/css-naming-conventions/" title="良好的CSS命名规则会让你省上上小时的调试时间">https://clarencec.github.io/2018/01/28/css-naming-conventions/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>-->
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag"><!-- <i class="fa fa-tag" ></i> --> css</a>
+          
+            <a href="/tags/BEM/" rel="tag"><!-- <i class="fa fa-tag" ></i> --> BEM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/29/person-summary-2017/" rel="next" title="2017总结 拥抱变化,夯实基础">
+                <i class="fa fa-chevron-left"></i> 2017总结 拥抱变化,夯实基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/04/Microbenchmark-for-JavaScript-By-Hax-NOTES/" rel="prev" title="D2 贺老 JavaScript Microbenchmark 测试的总结">
+                D2 贺老 JavaScript Microbenchmark 测试的总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container" class="not_borden_link"></div>
+      <script type='text/javascript'>
+          var gitalk = new Gitalk({
+            id: window.location.pathname,
+            clientID: 'abb004cd7f8a1605e527',
+            clientSecret: '5795184c99ea1897477f834da08a20b2a2dc8335',
+            repo: 'ClarenceC.github.io',
+            owner: 'ClarenceC',
+            admin: ['ClarenceC'],
+            enableHotKey: true,
+            perPage: 10
+          })
+          gitalk.render('gitalk-container')
+      </script>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460"
+               alt="ClarenceChen" />
+          <p class="site-author-name" itemprop="name">ClarenceChen</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://calpa.me" title="Calpa" target="_blank">Calpa</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leviding.com" title="LeviDing" target="_blank">LeviDing</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用‘-’分隔符分隔字符串"><span class="nav-number">1.</span> <span class="nav-text">用‘-’分隔符分隔字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEM-命名方式"><span class="nav-number">2.</span> <span class="nav-text">BEM 命名方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEM-已经诞生5年了-我们理解一下BEM是什么。"><span class="nav-number">3.</span> <span class="nav-text">BEM 已经诞生5年了,我们理解一下BEM是什么。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#B-就是-Block-模块"><span class="nav-number">3.1.</span> <span class="nav-text">B 就是 Block 模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-就是-Elements-元素"><span class="nav-number">3.2.</span> <span class="nav-text">E 就是 Elements 元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#M-就是-Modifiers-修饰符"><span class="nav-number">3.3.</span> <span class="nav-text">M 就是 Modifiers 修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要用到命名规则"><span class="nav-number">3.4.</span> <span class="nav-text">为什么要用到命名规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-JavaScript-钩子上的-CSS-名称"><span class="nav-number">3.5.</span> <span class="nav-text">在 JavaScript 钩子上的 CSS 名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小贴士：-写更详细的-CSS-注释"><span class="nav-number">3.6.</span> <span class="nav-text">小贴士： 写更详细的 CSS 注释</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ClarenceChen</span>
+</div>
+
+
+<div class="powered-by">
+  Theme by <a class="theme-link" href="https://hexo.io">Hexo</a>  
+</div>
+
+<div class="theme-info">
+  <!-- 主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a> -->
+  <!-- Design by  -
+  ClarenceChen -->
+  <div>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
