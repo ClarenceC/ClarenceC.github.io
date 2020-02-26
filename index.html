@@ -326,6 +326,156 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://clarencec.github.io/2020/02/26/BFC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ClarenceChen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ClarenceC">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/26/BFC/" itemprop="url">BFC 块格式化上下文</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-26T15:32:21+08:00">
+                2020-02-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-02-26T15:35:29+08:00">
+                2020-02-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="BFC-块格式化上下文"><a href="#BFC-块格式化上下文" class="headerlink" title="BFC 块格式化上下文"></a>BFC 块格式化上下文</h2><h3 id="BFC是什么？"><a href="#BFC是什么？" class="headerlink" title="BFC是什么？"></a>BFC是什么？</h3><p><dfn>BFC</dfn> (Block Formatting Context)是块格式化上下文，是 Web 页面的可视化CSS渲染的一部分，是块级盒子的布局过程发生的区域，也是浮动元素与其它元素交互的区域。块级盒子是什么可以了解一下<a href="./视觉格式化模型.md">视觉格式化模型</a>。具有BFC特性的元素会被生成块盒子，块级盒子里面应用了BFC提供了一个独立的容器环境，块级盒子里面的元素在独立的环境里面进行一定规则的布局，容器里面的元素不会在布局上面影响到外面的元素，并且 BFC 具有普通容器所有的一些特性。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/02/26/BFC/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://clarencec.github.io/2020/02/06/VFM/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -373,8 +523,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-02-06T21:09:31+08:00">
-                2020-02-06
+              <time title="更新于" itemprop="dateModified" datetime="2020-02-26T15:29:09+08:00">
+                2020-02-26
               </time>
             
           </span>
@@ -431,16 +581,6 @@
 <h3 id="什么是视觉格式化模型"><a href="#什么是视觉格式化模型" class="headerlink" title="什么是视觉格式化模型"></a>什么是视觉格式化模型</h3><blockquote>
 <p>视觉格式化模型会根据<strong>CSS盒子模型</strong>将文档中的元素转换为一个个盒子。——MDN</p>
 </blockquote>
-<p>可以理解为，Web页面都是由一个个盒子组成的，(因为任何元素都可以被视为一个盒子)，而视觉格式化模型是一套规则，用来计算<strong>元素转换为盒子的规则</strong>。而页面的布局都是由这些盒子的所处的各处位置组合而成。那么理解元素怎样转成盒子的规则，就能理解Web页面是怎样布局的。每个盒子的布局由以下因素决定的：</p>
-<ul>
-<li>盒子的尺寸: 精确指定、由约束条件指定或没有指定</li>
-<li>盒子的类型: 行内盒子(inline)、行内级盒子(inline-level)、原子行内级盒子(atomic inline-level)、块盒子(block)</li>
-<li>定位方案(positioning scheme): 普通流定位、浮动定位或绝对定位</li>
-<li>文档树中的其它元素: 即当前盒子的子元素或兄弟元素</li>
-<li>视口尺寸与位置</li>
-<li>所包含的图片的尺寸</li>
-<li>其他的某些外部因素</li>
-</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/02/06/VFM/#more" rel="contents">
@@ -720,7 +860,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="https://images.unsplash.com/photo-1460891053196-b9d4d9483d9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1375&q=80" rel="gallery_ck71re0g30008bf564ux8ackq"
+                 href="https://images.unsplash.com/photo-1460891053196-b9d4d9483d9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1375&q=80" rel="gallery_ck73087ha00036h56pef351iy"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://images.unsplash.com/photo-1460891053196-b9d4d9483d9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1375&q=80" itemprop="contentUrl"/>
               </a>
@@ -1143,7 +1283,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="/2018/03/09/JSthings-You-never-knew-existed/clem-onojeghuo-200300.jpg" rel="gallery_ck71re0gg000obf56zz5c168q"
+                 href="/2018/03/09/JSthings-You-never-knew-existed/clem-onojeghuo-200300.jpg" rel="gallery_ck73087hm000i6h56agikl8fv"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="/2018/03/09/JSthings-You-never-knew-existed/clem-onojeghuo-200300.jpg" itemprop="contentUrl"/>
               </a>
@@ -1312,7 +1452,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="/2018/02/13/chrome-devtools/chrome-devtools-1024x512.png" rel="gallery_ck71re0gp0018bf56o73v4bum"
+                 href="/2018/02/13/chrome-devtools/chrome-devtools-1024x512.png" rel="gallery_ck73087hx00196h568x18wzr3"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="/2018/02/13/chrome-devtools/chrome-devtools-1024x512.png" itemprop="contentUrl"/>
               </a>
@@ -1478,7 +1618,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="/2018/02/04/Microbenchmark-for-JavaScript-By-Hax-NOTES/WechatIMG149.jpeg" rel="gallery_ck71re0gj000wbf56mk98s3pm"
+                 href="/2018/02/04/Microbenchmark-for-JavaScript-By-Hax-NOTES/WechatIMG149.jpeg" rel="gallery_ck73087hy001b6h56q5or7n7s"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="/2018/02/04/Microbenchmark-for-JavaScript-By-Hax-NOTES/WechatIMG149.jpeg" itemprop="contentUrl"/>
               </a>
@@ -1622,7 +1762,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="https://cdn-images-1.medium.com/max/2000/1*YunI3ChUVMlpmFzo75FczQ.png" rel="gallery_ck71re0gq001cbf56z1ylkuhi"
+                 href="https://cdn-images-1.medium.com/max/2000/1*YunI3ChUVMlpmFzo75FczQ.png" rel="gallery_ck73087i1001g6h569pwzgbni"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://cdn-images-1.medium.com/max/2000/1*YunI3ChUVMlpmFzo75FczQ.png" itemprop="contentUrl"/>
               </a>
@@ -1646,173 +1786,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/01/28/css-naming-conventions/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://clarencec.github.io/2017/12/29/person-summary-2017/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ClarenceChen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/25650959?v=3&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ClarenceC">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/29/person-summary-2017/" itemprop="url">2017总结 拥抱变化,夯实基础</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-29T10:52:04+08:00">
-                2017-12-29
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-12-30T12:40:34+08:00">
-                2017-12-30
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/感想/" itemprop="url" rel="index">
-                    <span itemprop="name">感想</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox"
-                 href="https://images.unsplash.com/photo-1491245338813-c6832976196e?auto=format&fit=crop&w=2100&q=80" rel="gallery_ck71re0gx001rbf5676rx3nip"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://images.unsplash.com/photo-1491245338813-c6832976196e?auto=format&fit=crop&w=2100&q=80" itemprop="contentUrl"/>
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          <h2 id="2017年-时间飞逝"><a href="#2017年-时间飞逝" class="headerlink" title="2017年 时间飞逝"></a>2017年 时间飞逝</h2><p>总感觉时间过得很快,特别是今年,每过一周的时候总希望把时间挽留住,有时候我甚至会停下工作来看看时间,但时间还是很快的流走了,这就剩下了2017年的最后的两三天了.</p>
-<p>我今天算是迈向30了,是我改变蛮大的一年,人沉稳了很多,不再那么浮躁了.沉着气追求自己热爱的一切,工作,前端,艺术,生活,经历,全部的努力也慢慢向上发展,这是我乐于见到的,有种厚积待发的感觉.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/29/person-summary-2017/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1898,7 +1871,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

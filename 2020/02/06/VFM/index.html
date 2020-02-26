@@ -96,18 +96,18 @@
 
 
 
-<meta name="description" content="视觉格式化模型CSS 视觉格式化模型(visual formatting model) 是用来处理和在视觉媒体上显示文档时使用的计算规则。该模型是 CSS 的基础概念之一。 什么是视觉格式化模型 视觉格式化模型会根据CSS盒子模型将文档中的元素转换为一个个盒子。——MDN  可以理解为，Web页面都是由一个个盒子组成的">
+<meta name="description" content="视觉格式化模型CSS 视觉格式化模型(visual formatting model) 是用来处理和在视觉媒体上显示文档时使用的计算规则。该模型是 CSS 的基础概念之一。 什么是视觉格式化模型 视觉格式化模型会根据CSS盒子模型将文档中的元素转换为一个个盒子。——MDN">
 <meta name="keywords" content="CSS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="视觉格式化模型(VFM)">
 <meta property="og:url" content="https://clarencec.github.io/2020/02/06/VFM/index.html">
 <meta property="og:site_name" content="ClarenceC">
-<meta property="og:description" content="视觉格式化模型CSS 视觉格式化模型(visual formatting model) 是用来处理和在视觉媒体上显示文档时使用的计算规则。该模型是 CSS 的基础概念之一。 什么是视觉格式化模型 视觉格式化模型会根据CSS盒子模型将文档中的元素转换为一个个盒子。——MDN  可以理解为，Web页面都是由一个个盒子组成的，(因为任何元素都可以被视为一个盒子)，而视觉格式化模型是一套规则，用来计算元素">
+<meta property="og:description" content="视觉格式化模型CSS 视觉格式化模型(visual formatting model) 是用来处理和在视觉媒体上显示文档时使用的计算规则。该模型是 CSS 的基础概念之一。 什么是视觉格式化模型 视觉格式化模型会根据CSS盒子模型将文档中的元素转换为一个个盒子。——MDN">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-06T13:09:31.695Z">
+<meta property="og:updated_time" content="2020-02-26T07:29:09.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="视觉格式化模型(VFM)">
-<meta name="twitter:description" content="视觉格式化模型CSS 视觉格式化模型(visual formatting model) 是用来处理和在视觉媒体上显示文档时使用的计算规则。该模型是 CSS 的基础概念之一。 什么是视觉格式化模型 视觉格式化模型会根据CSS盒子模型将文档中的元素转换为一个个盒子。——MDN  可以理解为，Web页面都是由一个个盒子组成的，(因为任何元素都可以被视为一个盒子)，而视觉格式化模型是一套规则，用来计算元素">
+<meta name="twitter:description" content="视觉格式化模型CSS 视觉格式化模型(visual formatting model) 是用来处理和在视觉媒体上显示文档时使用的计算规则。该模型是 CSS 的基础概念之一。 什么是视觉格式化模型 视觉格式化模型会根据CSS盒子模型将文档中的元素转换为一个个盒子。——MDN">
 
 
 
@@ -371,8 +371,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-02-06T21:09:31+08:00">
-                2020-02-06
+              <time title="更新于" itemprop="dateModified" datetime="2020-02-26T15:29:09+08:00">
+                2020-02-26
               </time>
             
           </span>
@@ -433,6 +433,7 @@
 <h3 id="什么是视觉格式化模型"><a href="#什么是视觉格式化模型" class="headerlink" title="什么是视觉格式化模型"></a>什么是视觉格式化模型</h3><blockquote>
 <p>视觉格式化模型会根据<strong>CSS盒子模型</strong>将文档中的元素转换为一个个盒子。——MDN</p>
 </blockquote>
+<a id="more"></a>
 <p>可以理解为，Web页面都是由一个个盒子组成的，(因为任何元素都可以被视为一个盒子)，而视觉格式化模型是一套规则，用来计算<strong>元素转换为盒子的规则</strong>。而页面的布局都是由这些盒子的所处的各处位置组合而成。那么理解元素怎样转成盒子的规则，就能理解Web页面是怎样布局的。每个盒子的布局由以下因素决定的：</p>
 <ul>
 <li>盒子的尺寸: 精确指定、由约束条件指定或没有指定</li>
@@ -443,7 +444,6 @@
 <li>所包含的图片的尺寸</li>
 <li>其他的某些外部因素</li>
 </ul>
-<a id="more"></a>
 <h3 id="那么视觉格式化模型和CSS盒子模型是一样的东西么？"><a href="#那么视觉格式化模型和CSS盒子模型是一样的东西么？" class="headerlink" title="那么视觉格式化模型和CSS盒子模型是一样的东西么？"></a>那么视觉格式化模型和CSS盒子模型是一样的东西么？</h3><p>并不是一样的模型，视觉格式化模型是元素转换为盒子的规则计算盒子位置的模型，换转为盒子后再有相应的<strong>CSS盒子模型</strong>，CSS盒子模型是由四个部分组成由内容边界(Content edge)、内边跟边界(Padding Edge)、边框边界(BorderEdge)、外边边框边界(Margin Edge)，由这四部分来计算盒子尺寸(<code>width</code>、<code>height</code>、<code>padding</code>、<code>border</code>和<code>margin</code>)该文章里不详述。</p>
 <h3 id="盒子的生成"><a href="#盒子的生成" class="headerlink" title="盒子的生成"></a>盒子的生成</h3><p>盒子的生成是 CSS 视觉格式化模型的一部分，用于从文档元素生成盒子。不同的元素会生成不同类型的盒子，不同的盒子类型格式化方法也是不一样的。盒子中可以包含一个或多个盒子，CSS的视觉格式化模型会根据盒子的包含块(Containing Block,即包含其它盒子的块)的边界来渲染盒子。通常，盒子会创建一个包含其后代元素的<strong>包含块</strong>，但是盒子并不会被包含块限制住，盒子里面的布局会撑破<strong>包含块</strong>,使超出边界，这在CSS中通常被叫<strong>溢出</strong>。</p>
 <p>盒子生成的类型取决于CSS <code>display</code> 属性，主要分下面几类:</p>
@@ -602,6 +602,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/02/26/BFC/" rel="prev" title="BFC 块格式化上下文">
+                BFC 块格式化上下文 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -687,7 +691,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
