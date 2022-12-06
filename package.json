@@ -1,0 +1,37 @@
+{
+  "name": "my-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "my-site",
+  "author": "Clarence.C",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "gatsby": "^4.23.0",
+    "gatsby-plugin-styled-components": "^5.23.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "styled-components": "^5.3.5",
+    "tailwindcss": "^3.1.8",
+    "twin.macro": "^2.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.45",
+    "@types/react": "^18.0.20",
+    "@types/react-dom": "^18.0.6",
+    "@types/styled-components": "^5.1.26",
+    "babel-plugin-macros": "^3.1.0",
+    "babel-plugin-styled-components": "^2.0.7",
+    "babel-plugin-twin": "^1.0.2",
+    "typescript": "^4.8.3"
+  }
+}
